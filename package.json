@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.3.3",
+    "dotenv": "^17.4.2",
     "tailwindcss": "4.3.3",
     "wrangler": "4.124.0"
   }
