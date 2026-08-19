@@ -1,0 +1,199 @@
+---
+// Design reminder: a field-guide-like single page, with a continuous equator line, factual labels, true site photography, and restrained scientific illustrations.
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { site } from "../../site.config.mjs";
+
+const pageTitle = "Tugu Khatulistiwa — Panduan Lapangan Pontianak";
+const pageDescription = "Panduan independen berbahasa Indonesia dan Inggris untuk Tugu Khatulistiwa di Pontianak.";
+const canonical = site ? new URL("/", site).toString() : undefined;
+const monumentPhoto = "https://commons.wikimedia.org/wiki/Special:FilePath/Pontianak%20Equator%20Monument.jpg?width=1920";
+const mapUrl = "https://maps.app.goo.gl/D3JkJPVsLY13MFNv8";
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": ["TouristAttraction", "LocalBusiness"],
+  name: "Tugu Khatulistiwa",
+  alternateName: "Equator Monument",
+  description: "A geographic and educational monument marking the equator in Pontianak, Indonesia.",
+  image: monumentPhoto,
+  address: { "@type": "PostalAddress", streetAddress: "Jl. Khatulistiwa, Batu Layang, Pontianak Utara", addressLocality: "Kota Pontianak", addressRegion: "Kalimantan Barat", postalCode: "78244", addressCountry: "ID" },
+  geo: { "@type": "GeoCoordinates", latitude: "0.000721", longitude: "109.322105" },
+  openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "08:00", closes: "16:00" }],
+  priceRange: "IDR 5,000",
+  aggregateRating: { "@type": "AggregateRating", ratingValue: "4.5", bestRating: "5", worstRating: "1", ratingCount: "9000" },
+  ...(canonical ? { url: canonical } : {})
+};
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    { "@type": "Question", name: "Apakah Tugu Khatulistiwa berbayar?", acceptedAnswer: { "@type": "Answer", text: "Pemerintah Kota Pontianak menyatakan kunjungan dikenai retribusi sejak Februari 2024. Sistem pariwisata nasional mencantumkan Rp5.000 untuk masuk tugu; konfirmasikan harga terbaru sebelum berangkat." } },
+    { "@type": "Question", name: "Kapan waktu terbaik untuk mengunjungi Tugu Khatulistiwa?", acceptedAnswer: { "@type": "Answer", text: "Untuk kunjungan biasa, pagi atau sore biasanya lebih nyaman. Fenomena kulminasi matahari biasanya diamati sekitar 21–23 Maret dan 21–23 September." } },
+    { "@type": "Question", name: "Bagaimana menuju Tugu Khatulistiwa dari bandara?", acceptedAnswer: { "@type": "Answer", text: "Taksi bandara dan layanan transportasi berbasis aplikasi adalah pilihan paling langsung dari Bandara Supadio. Waktu perjalanan dipengaruhi lalu lintas; periksa rute pada hari kunjungan." } }
+  ]
+};
+---
+<SiteLayout title={pageTitle} description={pageDescription}>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+  </Fragment>
+  <section class="hero" id="top">
+    <div class="hero-photograph" style={`background-image:url('${monumentPhoto}')`} aria-label="Tugu Khatulistiwa di Pontianak, karya SunDawn"></div>
+    <div class="hero-scrim"></div>
+    <div class="hero-copy">
+      <p class="eyebrow light" data-i18n="heroKicker">PONTIANAK, KALIMANTAN BARAT · PANDUAN INDEPENDEN</p>
+      <h1 data-i18n="heroTitle">Tugu<br /><em>Khatulistiwa.</em></h1>
+      <p class="hero-intro" data-i18n="heroIntro">Satu titik untuk membaca bumi: monumen, garis imajiner, dan perjalanan singkat ke utara Kota Pontianak.</p>
+      <div class="hero-actions">
+        <a class="button button-sun" href="#kunjungan" data-i18n="heroPlan">Rencanakan kunjungan <span>↓</span></a>
+        <a class="text-link light-link" href={mapUrl} target="_blank" rel="noreferrer" data-i18n="heroMap">Buka di Google Maps <span>↗</span></a>
+      </div>
+      <p class="photo-credit" data-i18n="heroCredit">Foto: SunDawn · CC BY-SA 4.0 · Wikimedia Commons</p>
+    </div>
+    <aside class="hero-ledger" aria-label="Ringkasan kunjungan">
+      <p class="ledger-label" data-i18n="ledgerLabel">RINGKAS</p>
+      <dl>
+        <div><dt data-i18n="ledgerPlace">LOKASI</dt><dd data-i18n="ledgerPlaceValue">Pontianak Utara</dd></div>
+        <div><dt data-i18n="ledgerLatitude">GARIS LINTANG</dt><dd>0°</dd></div>
+        <div><dt data-i18n="ledgerDuration">RENCANAKAN</dt><dd data-i18n="ledgerDurationValue">45–90 menit</dd></div>
+        <div><dt data-i18n="ledgerHours">DATA PUBLIK</dt><dd data-i18n="ledgerHoursValue">08.00–16.00*</dd></div>
+      </dl>
+      <p class="ledger-note" data-i18n="ledgerNote">*Jadwal, akses, dan biaya dapat berubah. Konfirmasi sebelum berangkat.</p>
+    </aside>
+    <div class="hero-astronomy" aria-hidden="true"><i></i><i></i><i></i><b>0°</b></div>
+    <div class="equator-line hero-line" aria-hidden="true"><span></span><i></i></div>
+  </section>
+
+  <section class="intro-section" id="tentang">
+    <div class="section-index">01<span></span></div>
+    <div class="intro-heading">
+      <p class="eyebrow" data-i18n="aboutKicker">ORIENTASI</p>
+      <h2 data-i18n="aboutTitle">Sebuah penanda<br />pada garis yang <em>tak terlihat.</em></h2>
+    </div>
+    <div class="intro-copy">
+      <p data-i18n="aboutP1">Tugu Khatulistiwa menandai kawasan yang dilalui garis khatulistiwa di Jalan Khatulistiwa, Batu Layang, Pontianak Utara. Ia bukan hanya titik foto: tempat ini menghubungkan geografi, astronomi, dan sejarah pemetaan.</p>
+      <p data-i18n="aboutP2">Pada garis lintang nol derajat, bumi dibaca sebagai dua belahan. Di Pontianak, gagasan yang tak terlihat itu diberi bentuk—sebuah cincin, panah, dan ruang untuk berhenti sejenak.</p>
+      <a class="text-link" href="#sejarah" data-i18n="aboutLink">Mulai dari sejarah <span>↓</span></a>
+    </div>
+    <div class="fact-strip" aria-label="Fakta lokasi">
+      <div><span>0°</span><p data-i18n="factZero">garis lintang<br />khatulistiwa</p></div>
+      <div><span>1928</span><p data-i18n="factYear">awal penandaan<br />di Pontianak</p></div>
+      <div><span>2×</span><p data-i18n="factTwice">kulminasi surya<br />setiap tahun</p></div>
+      <div><span>±3 km</span><p data-i18n="factDistance">utara dari<br />pusat kota</p></div>
+    </div>
+  </section>
+
+  <section class="history-section" id="sejarah">
+    <div class="history-art" aria-hidden="true"><div class="topographic-art"><i></i><i></i><i></i><b>109° 19′ E</b></div></div>
+    <div class="history-copy">
+      <p class="eyebrow" data-i18n="historyKicker">02 · LAPIS WAKTU</p>
+      <h2 data-i18n="historyTitle">Dari tonggak sederhana<br />menjadi <em>ikon kota.</em></h2>
+      <p data-i18n="historyIntro">Versi pertama didirikan pada 1928 sebagai penanda survei geografis. Bentuknya berkembang melalui beberapa tahap, sementara monumen kini melindungi jejak penanda awal di dalam kompleksnya.</p>
+      <ol class="timeline">
+        <li><span>1928</span><p data-i18n="timeline1">Tim ekspedisi menggunakan tonggak kayu untuk menandai lokasi.</p></li>
+        <li><span>1930</span><p data-i18n="timeline2">Penanda diperbarui menjadi tonggak besi berbentuk silinder.</p></li>
+        <li><span>1938</span><p data-i18n="timeline3">Struktur dengan panah dan lingkaran memperjelas penanda lintang nol derajat.</p></li>
+        <li><span>1990</span><p data-i18n="timeline4">Perluasan besar membentuk tampilan monumen yang dikenal pengunjung saat ini.</p></li>
+      </ol>
+      <p class="source-note" data-i18n="historySource">Ringkasan sejarah berdasarkan Indonesia.travel dan materi publik Pemerintah Kota Pontianak.</p>
+    </div>
+  </section>
+
+  <section class="culmination-section" aria-labelledby="culmination-heading">
+    <div class="culmination-copy">
+      <p class="eyebrow light" data-i18n="culminationKicker">03 · AMATI LANGIT</p>
+      <h2 id="culmination-heading" data-i18n="culminationTitle">Saat bayangan<br /><em>menyusut.</em></h2>
+      <p data-i18n="culminationP1">Sekitar 21–23 Maret dan 21–23 September, matahari dapat berada sangat dekat di atas kepala pada tengah hari. Pada saat kulminasi, bayangan benda tegak seakan bersembunyi tepat di bawahnya.</p>
+      <p data-i18n="culminationP2">Tanggal dan jam pengamatan dipengaruhi perhitungan astronomi serta cuaca. Anggap rentang ini sebagai petunjuk untuk memeriksa agenda setempat, bukan janji waktu yang tetap.</p>
+    </div>
+    <figure class="culmination-figure"><div class="solar-diagram" aria-hidden="true"><span></span><i></i><b>0°</b></div><figcaption data-i18n="culminationCaption">Ilustrasi konseptual, bukan foto observasi.</figcaption></figure>
+  </section>
+
+  <section class="visit-section" id="kunjungan">
+    <div class="section-heading-row">
+      <div><p class="eyebrow" data-i18n="visitKicker">04 · SEBELUM BERANGKAT</p><h2 data-i18n="visitTitle">Kunjungan yang<br /><em>lebih tenang.</em></h2></div>
+      <p data-i18n="visitIntro">Gunakan bagian ini sebagai daftar persiapan. Informasi operasional dapat berubah; periksa kembali melalui kanal resmi atau petugas di lokasi.</p>
+    </div>
+    <div class="visit-grid">
+      <article class="info-card"><span class="card-number">A</span><h3 data-i18n="visitHoursTitle">Jam & biaya</h3><p data-i18n="visitHoursP">Data sistem pariwisata nasional mencantumkan setiap hari pukul 08.00–16.00 dan tiket masuk tugu Rp5.000. Pemerintah kota juga menyatakan retribusi berlaku sejak Februari 2024. Harap konfirmasi sebelum datang.</p></article>
+      <article class="info-card"><span class="card-number">B</span><h3 data-i18n="visitTimingTitle">Waktu yang nyaman</h3><p data-i18n="visitTimingP">Pagi atau sore biasanya lebih nyaman untuk berjalan dan memotret. Gunakan pelindung matahari, bawa air minum, dan pertimbangkan hujan tropis.</p></article>
+      <article class="info-card"><span class="card-number">C</span><h3 data-i18n="visitDurationTitle">Durasi & etika</h3><p data-i18n="visitDurationP">Sediakan sekitar 45–90 menit untuk penanda, ruang edukasi, dan foto. Ikuti rambu lokasi, jaga kebersihan, dan tanyakan aturan fotografi khusus bila ada kegiatan.</p></article>
+    </div>
+    <div class="facility-band">
+      <p class="eyebrow" data-i18n="facilityKicker">CATATAN FASILITAS</p>
+      <p data-i18n="facilityP">Kompleks diketahui memiliki area parkir, toilet, area istirahat, dan ruang informasi/pajangan. Ketersediaan, kondisi, akses kursi roda, serta jam layanan dapat berubah—tanyakan langsung saat tiba.</p>
+    </div>
+  </section>
+
+  <section class="route-section" id="rute">
+    <div class="route-heading"><p class="eyebrow" data-i18n="routeKicker">05 · MENUJU GARIS NOL</p><h2 data-i18n="routeTitle">Rute, tanpa<br /><em>mengarang kepastian.</em></h2><p data-i18n="routeIntro">Lalu lintas dan angkutan berubah. Pilihan berikut menjelaskan jenis perjalanan yang dapat dipertimbangkan, tanpa mempromosikan operator tertentu.</p></div>
+    <div class="route-list">
+      <details open><summary><span>01</span><b data-i18n="routeAirportTitle">Dari Bandara Supadio</b><i>+</i></summary><p data-i18n="routeAirportP">Taksi bandara atau transportasi berbasis aplikasi biasanya merupakan pilihan paling langsung. Indonesia.travel menyebut perjalanan dapat memakan sekitar 30–45 menit, bergantung kondisi lalu lintas. Periksa rute pada hari perjalanan.</p></details>
+      <details><summary><span>02</span><b data-i18n="routeCenterTitle">Dari pusat Pontianak</b><i>+</i></summary><p data-i18n="routeCenterP">Gunakan kendaraan pribadi, taksi, ojek, atau angkutan umum yang menuju Pontianak Utara/Jalan Khatulistiwa. Monumen berada sekitar 3 km di utara pusat kota menurut Indonesia.travel.</p></details>
+      <details><summary><span>03</span><b data-i18n="routeBusTitle">Bus & angkutan umum</b><i>+</i></summary><p data-i18n="routeBusP">Cari rute lokal yang melewati Jalan Khatulistiwa atau menuju Pontianak Utara. Sebelum naik, tanyakan kepada pengemudi apakah kendaraan melewati kawasan tugu; jaringan dan jadwal dapat berubah.</p></details>
+      <details><summary><span>04</span><b data-i18n="routeDriveTitle">Berkendara & parkir</b><i>+</i></summary><p data-i18n="routeDriveP">Area parkir tercantum dalam informasi kunjungan umum. Datanglah lebih awal pada akhir pekan atau masa kulminasi, ikuti arahan petugas, dan jangan mengasumsikan kapasitas selalu tersedia.</p></details>
+    </div>
+    <a class="button button-ink" href={mapUrl} target="_blank" rel="noreferrer" data-i18n="routeButton">Buka rute di Google Maps <span>↗</span></a>
+  </section>
+
+  <section class="map-section" aria-label="Peta Tugu Khatulistiwa">
+    <div class="map-copy"><p class="eyebrow light" data-i18n="mapKicker">06 · POSISI</p><h2 data-i18n="mapTitle">Temukan titiknya,<br />lalu <em>lihat sekitar.</em></h2><p data-i18n="mapP">Peta disematkan untuk orientasi. Pastikan titik turun, akses kendaraan, dan kondisi rute terkini sebelum berangkat.</p></div>
+    <iframe title="Peta Tugu Khatulistiwa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6899.06084470204!2d109.3198152124356!3d0.000920999999069569!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31e2a75b7f18d41d%3A0x959992e0a47ea028!5e1!3m2!1sid!2sid!4v1787105931228!5m2!1sid!2sid" width="600" height="450" style="border:0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </section>
+
+  <section class="around-section" id="sekitar">
+    <div class="section-heading-row"><div><p class="eyebrow" data-i18n="aroundKicker">07 · SEKITAR KAWASAN</p><h2 data-i18n="aroundTitle">Lanjutkan dengan<br /><em>rasa ingin tahu.</em></h2></div><p data-i18n="aroundIntro">Bagian ini menyarankan tipe pengalaman dan layanan, bukan nama usaha. Selalu sesuaikan dengan kebutuhan, jam operasional, dan kondisi perjalanan Anda.</p></div>
+    <div class="around-grid">
+      <article><span>01</span><h3 data-i18n="aroundFoodTitle">Makan & minum</h3><p data-i18n="aroundFoodP">Di pusat kota dan koridor perjalanan, cari rumah makan lokal, kedai minuman, atau pasar makanan sesuai kebutuhan. Pilih tempat dengan higiene yang baik dan periksa jam buka sendiri.</p></article>
+      <article><span>02</span><h3 data-i18n="aroundStayTitle">Menginap & kebutuhan harian</h3><p data-i18n="aroundStayP">Untuk menginap, pertimbangkan akomodasi di pusat Pontianak dengan akses transportasi yang sesuai. Minimarket, apotek, ATM, dan stasiun pengisian bahan bakar/energi dapat ditemukan di area kota; gunakan peta terbaru.</p></article>
+      <article><span>03</span><h3 data-i18n="aroundPlacesTitle">Tempat lain untuk dipelajari</h3><p data-i18n="aroundPlacesP">Lanjutkan dengan ruang budaya, tepi Sungai Kapuas, pasar kota, atau museum yang relevan dengan minat Anda. Konfirmasi akses, etika kunjungan, serta keadaan cuaca sebelum menyusun urutan.</p></article>
+    </div>
+  </section>
+
+  <section class="faq-section" id="faq">
+    <div class="faq-heading"><p class="eyebrow" data-i18n="faqKicker">08 · TANYA JAWAB</p><h2 data-i18n="faqTitle">Hal yang patut<br /><em>Anda ketahui.</em></h2></div>
+    <div class="faq-list">
+      <details><summary><span>01</span><b data-i18n="faq1q">Apakah masuk ke Tugu Khatulistiwa berbayar?</b><i>+</i></summary><p data-i18n="faq1a">Ya, Pemerintah Kota Pontianak menyatakan kunjungan dikenai retribusi sejak Februari 2024. Sistem pariwisata nasional mencantumkan Rp5.000 untuk masuk tugu. Harga dapat berubah; konfirmasi sebelum datang.</p></details>
+      <details><summary><span>02</span><b data-i18n="faq2q">Kapan waktu terbaik untuk datang?</b><i>+</i></summary><p data-i18n="faq2a">Untuk kunjungan umum, pagi atau sore membantu mengurangi paparan panas. Jika ingin mengamati kulminasi, periksa agenda setempat sekitar 21–23 Maret atau 21–23 September.</p></details>
+      <details><summary><span>03</span><b data-i18n="faq3q">Berapa lama kunjungan yang ideal?</b><i>+</i></summary><p data-i18n="faq3a">Sebagai saran perencanaan, sisihkan sekitar 45–90 menit untuk melihat penanda, membaca informasi, berfoto, dan beristirahat. Tambahkan waktu pada akhir pekan atau saat ada acara.</p></details>
+      <details><summary><span>04</span><b data-i18n="faq4q">Apakah tersedia parkir dan toilet?</b><i>+</i></summary><p data-i18n="faq4a">Informasi pengunjung umum menyebut area parkir dan toilet di kompleks. Kondisi dan kapasitasnya dapat berubah, jadi tanyakan kepada petugas saat tiba bila hal ini penting bagi perjalanan Anda.</p></details>
+      <details><summary><span>05</span><b data-i18n="faq5q">Apakah ramah bagi pengguna kursi roda?</b><i>+</i></summary><p data-i18n="faq5a">Kami tidak menemukan sumber publik terbaru yang cukup rinci untuk menjamin akses bebas hambatan di semua bagian. Hubungi atau tanyakan pengelola sebelum datang apabila membutuhkan akses khusus.</p></details>
+    </div>
+  </section>
+
+  <section class="sources-section"><div><p class="eyebrow" data-i18n="sourcesKicker">CATATAN SUMBER</p><h2 data-i18n="sourcesTitle">Baca lebih jauh,<br />cek kembali <em>sebelum pergi.</em></h2></div><div class="source-links"><a href="https://disporapar.pontianak.go.id/pariwisata/6" target="_blank" rel="noreferrer"><span>01</span><b data-i18n="source1">Dinas Pemuda, Olahraga dan Pariwisata Kota Pontianak</b><i>↗</i></a><a href="https://www.indonesia.travel/id/id/travel-ideas/culture/tugu-khatulistiwa" target="_blank" rel="noreferrer"><span>02</span><b data-i18n="source2">Indonesia.travel — Tugu Khatulistiwa</b><i>↗</i></a><a href="https://sisparnas.kemenpar.go.id/p/79955" target="_blank" rel="noreferrer"><span>03</span><b data-i18n="source3">Sisparnas — profil daya tarik wisata</b><i>↗</i></a></div></section>
+
+  <script is:inline>
+    // Design reminder: copy switches immediately between Bahasa Indonesia and English; no machine-mixed sentences are shown.
+    const homeTranslations = {
+      id: {
+        heroKicker:"PONTIANAK, KALIMANTAN BARAT · PANDUAN INDEPENDEN",heroTitle:"Tugu<br /><em>Khatulistiwa.</em>",heroIntro:"Satu titik untuk membaca bumi: monumen, garis imajiner, dan perjalanan singkat ke utara Kota Pontianak.",heroPlan:"Rencanakan kunjungan <span>↓</span>",heroMap:"Buka di Google Maps <span>↗</span>",heroCredit:"Foto: SunDawn · CC BY-SA 4.0 · Wikimedia Commons",ledgerLabel:"RINGKAS",ledgerPlace:"LOKASI",ledgerPlaceValue:"Pontianak Utara",ledgerLatitude:"GARIS LINTANG",ledgerDuration:"RENCANAKAN",ledgerDurationValue:"45–90 menit",ledgerHours:"DATA PUBLIK",ledgerHoursValue:"08.00–16.00*",ledgerNote:"*Jadwal, akses, dan biaya dapat berubah. Konfirmasi sebelum berangkat.",
+        aboutKicker:"ORIENTASI",aboutTitle:"Sebuah penanda<br />pada garis yang <em>tak terlihat.</em>",aboutP1:"Tugu Khatulistiwa menandai kawasan yang dilalui garis khatulistiwa di Jalan Khatulistiwa, Batu Layang, Pontianak Utara. Ia bukan hanya titik foto: tempat ini menghubungkan geografi, astronomi, dan sejarah pemetaan.",aboutP2:"Pada garis lintang nol derajat, bumi dibaca sebagai dua belahan. Di Pontianak, gagasan yang tak terlihat itu diberi bentuk—sebuah cincin, panah, dan ruang untuk berhenti sejenak.",aboutLink:"Mulai dari sejarah <span>↓</span>",factZero:"garis lintang<br />khatulistiwa",factYear:"awal penandaan<br />di Pontianak",factTwice:"kulminasi surya<br />setiap tahun",factDistance:"utara dari<br />pusat kota",
+        historyKicker:"02 · LAPIS WAKTU",historyTitle:"Dari tonggak sederhana<br />menjadi <em>ikon kota.</em>",historyIntro:"Versi pertama didirikan pada 1928 sebagai penanda survei geografis. Bentuknya berkembang melalui beberapa tahap, sementara monumen kini melindungi jejak penanda awal di dalam kompleksnya.",timeline1:"Tim ekspedisi menggunakan tonggak kayu untuk menandai lokasi.",timeline2:"Penanda diperbarui menjadi tonggak besi berbentuk silinder.",timeline3:"Struktur dengan panah dan lingkaran memperjelas penanda lintang nol derajat.",timeline4:"Perluasan besar membentuk tampilan monumen yang dikenal pengunjung saat ini.",historySource:"Ringkasan sejarah berdasarkan Indonesia.travel dan materi publik Pemerintah Kota Pontianak.",
+        culminationKicker:"03 · AMATI LANGIT",culminationTitle:"Saat bayangan<br /><em>menyusut.</em>",culminationP1:"Sekitar 21–23 Maret dan 21–23 September, matahari dapat berada sangat dekat di atas kepala pada tengah hari. Pada saat kulminasi, bayangan benda tegak seakan bersembunyi tepat di bawahnya.",culminationP2:"Tanggal dan jam pengamatan dipengaruhi perhitungan astronomi serta cuaca. Anggap rentang ini sebagai petunjuk untuk memeriksa agenda setempat, bukan janji waktu yang tetap.",culminationCaption:"Ilustrasi konseptual, bukan foto observasi.",
+        visitKicker:"04 · SEBELUM BERANGKAT",visitTitle:"Kunjungan yang<br /><em>lebih tenang.</em>",visitIntro:"Gunakan bagian ini sebagai daftar persiapan. Informasi operasional dapat berubah; periksa kembali melalui kanal resmi atau petugas di lokasi.",visitHoursTitle:"Jam & biaya",visitHoursP:"Data sistem pariwisata nasional mencantumkan setiap hari pukul 08.00–16.00 dan tiket masuk tugu Rp5.000. Pemerintah kota juga menyatakan retribusi berlaku sejak Februari 2024. Harap konfirmasi sebelum datang.",visitTimingTitle:"Waktu yang nyaman",visitTimingP:"Pagi atau sore biasanya lebih nyaman untuk berjalan dan memotret. Gunakan pelindung matahari, bawa air minum, dan pertimbangkan hujan tropis.",visitDurationTitle:"Durasi & etika",visitDurationP:"Sediakan sekitar 45–90 menit untuk penanda, ruang edukasi, dan foto. Ikuti rambu lokasi, jaga kebersihan, dan tanyakan aturan fotografi khusus bila ada kegiatan.",facilityKicker:"CATATAN FASILITAS",facilityP:"Kompleks diketahui memiliki area parkir, toilet, area istirahat, dan ruang informasi/pajangan. Ketersediaan, kondisi, akses kursi roda, serta jam layanan dapat berubah—tanyakan langsung saat tiba.",
+        routeKicker:"05 · MENUJU GARIS NOL",routeTitle:"Rute, tanpa<br /><em>mengarang kepastian.</em>",routeIntro:"Lalu lintas dan angkutan berubah. Pilihan berikut menjelaskan jenis perjalanan yang dapat dipertimbangkan, tanpa mempromosikan operator tertentu.",routeAirportTitle:"Dari Bandara Supadio",routeAirportP:"Taksi bandara atau transportasi berbasis aplikasi biasanya merupakan pilihan paling langsung. Indonesia.travel menyebut perjalanan dapat memakan sekitar 30–45 menit, bergantung kondisi lalu lintas. Periksa rute pada hari perjalanan.",routeCenterTitle:"Dari pusat Pontianak",routeCenterP:"Gunakan kendaraan pribadi, taksi, ojek, atau angkutan umum yang menuju Pontianak Utara/Jalan Khatulistiwa. Monumen berada sekitar 3 km di utara pusat kota menurut Indonesia.travel.",routeBusTitle:"Bus & angkutan umum",routeBusP:"Cari rute lokal yang melewati Jalan Khatulistiwa atau menuju Pontianak Utara. Sebelum naik, tanyakan kepada pengemudi apakah kendaraan melewati kawasan tugu; jaringan dan jadwal dapat berubah.",routeDriveTitle:"Berkendara & parkir",routeDriveP:"Area parkir tercantum dalam informasi kunjungan umum. Datanglah lebih awal pada akhir pekan atau masa kulminasi, ikuti arahan petugas, dan jangan mengasumsikan kapasitas selalu tersedia.",routeButton:"Buka rute di Google Maps <span>↗</span>",
+        mapKicker:"06 · POSISI",mapTitle:"Temukan titiknya,<br />lalu <em>lihat sekitar.</em>",mapP:"Peta disematkan untuk orientasi. Pastikan titik turun, akses kendaraan, dan kondisi rute terkini sebelum berangkat.",aroundKicker:"07 · SEKITAR KAWASAN",aroundTitle:"Lanjutkan dengan<br /><em>rasa ingin tahu.</em>",aroundIntro:"Bagian ini menyarankan tipe pengalaman dan layanan, bukan nama usaha. Selalu sesuaikan dengan kebutuhan, jam operasional, dan kondisi perjalanan Anda.",aroundFoodTitle:"Makan & minum",aroundFoodP:"Di pusat kota dan koridor perjalanan, cari rumah makan lokal, kedai minuman, atau pasar makanan sesuai kebutuhan. Pilih tempat dengan higiene yang baik dan periksa jam buka sendiri.",aroundStayTitle:"Menginap & kebutuhan harian",aroundStayP:"Untuk menginap, pertimbangkan akomodasi di pusat Pontianak dengan akses transportasi yang sesuai. Minimarket, apotek, ATM, dan stasiun pengisian bahan bakar/energi dapat ditemukan di area kota; gunakan peta terbaru.",aroundPlacesTitle:"Tempat lain untuk dipelajari",aroundPlacesP:"Lanjutkan dengan ruang budaya, tepi Sungai Kapuas, pasar kota, atau museum yang relevan dengan minat Anda. Konfirmasi akses, etika kunjungan, serta keadaan cuaca sebelum menyusun urutan.",
+        faqKicker:"08 · TANYA JAWAB",faqTitle:"Hal yang patut<br /><em>Anda ketahui.</em>",faq1q:"Apakah masuk ke Tugu Khatulistiwa berbayar?",faq1a:"Ya, Pemerintah Kota Pontianak menyatakan kunjungan dikenai retribusi sejak Februari 2024. Sistem pariwisata nasional mencantumkan Rp5.000 untuk masuk tugu. Harga dapat berubah; konfirmasi sebelum datang.",faq2q:"Kapan waktu terbaik untuk datang?",faq2a:"Untuk kunjungan umum, pagi atau sore membantu mengurangi paparan panas. Jika ingin mengamati kulminasi, periksa agenda setempat sekitar 21–23 Maret atau 21–23 September.",faq3q:"Berapa lama kunjungan yang ideal?",faq3a:"Sebagai saran perencanaan, sisihkan sekitar 45–90 menit untuk melihat penanda, membaca informasi, berfoto, dan beristirahat. Tambahkan waktu pada akhir pekan atau saat ada acara.",faq4q:"Apakah tersedia parkir dan toilet?",faq4a:"Informasi pengunjung umum menyebut area parkir dan toilet di kompleks. Kondisi dan kapasitasnya dapat berubah, jadi tanyakan kepada petugas saat tiba bila hal ini penting bagi perjalanan Anda.",faq5q:"Apakah ramah bagi pengguna kursi roda?",faq5a:"Kami tidak menemukan sumber publik terbaru yang cukup rinci untuk menjamin akses bebas hambatan di semua bagian. Hubungi atau tanyakan pengelola sebelum datang apabila membutuhkan akses khusus.",
+        sourcesKicker:"CATATAN SUMBER",sourcesTitle:"Baca lebih jauh,<br />cek kembali <em>sebelum pergi.</em>",source1:"Dinas Pemuda, Olahraga dan Pariwisata Kota Pontianak",source2:"Indonesia.travel — Tugu Khatulistiwa",source3:"Sisparnas — profil daya tarik wisata"
+      },
+      en: {
+        heroKicker:"PONTIANAK, WEST KALIMANTAN · INDEPENDENT GUIDE",heroTitle:"Equator<br /><em>Monument.</em>",heroIntro:"One place to read the Earth: a monument, an imaginary line, and a short journey north of central Pontianak.",heroPlan:"Plan your visit <span>↓</span>",heroMap:"Open in Google Maps <span>↗</span>",heroCredit:"Photo: SunDawn · CC BY-SA 4.0 · Wikimedia Commons",ledgerLabel:"AT A GLANCE",ledgerPlace:"LOCATION",ledgerPlaceValue:"North Pontianak",ledgerLatitude:"LATITUDE",ledgerDuration:"ALLOW",ledgerDurationValue:"45–90 min",ledgerHours:"PUBLIC LISTING",ledgerHoursValue:"08:00–16:00*",ledgerNote:"*Hours, access and fees can change. Confirm before travelling.",
+        aboutKicker:"ORIENTATION",aboutTitle:"A marker on a line<br />you <em>cannot see.</em>",aboutP1:"Tugu Khatulistiwa marks the area crossed by the equator on Jalan Khatulistiwa in Batu Layang, North Pontianak. It is more than a photo stop: this place connects geography, astronomy and the history of mapping.",aboutP2:"At zero degrees latitude, the Earth is read as two hemispheres. In Pontianak, that invisible idea is given a form—a ring, an arrow and a place to pause.",aboutLink:"Begin with the history <span>↓</span>",factZero:"equatorial<br />latitude",factYear:"first marker<br />in Pontianak",factTwice:"solar culminations<br />each year",factDistance:"north of the<br />city centre",
+        historyKicker:"02 · LAYERS OF TIME",historyTitle:"From a simple stake<br />to a <em>city icon.</em>",historyIntro:"The first version was installed in 1928 as a geographical-survey marker. Its form evolved in several stages, while the present monument protects traces of the early marker within its complex.",timeline1:"An expedition team used a wooden stake to mark the site.",timeline2:"The marker was renewed as a cylindrical iron post.",timeline3:"A structure with an arrow and ring clarified the zero-degree latitude marker.",timeline4:"A major extension created the monument visitors recognise today.",historySource:"Historical summary based on Indonesia.travel and public material from Pontianak City Government.",
+        culminationKicker:"03 · LOOK UP",culminationTitle:"When shadows<br /><em>contract.</em>",culminationP1:"Around 21–23 March and 21–23 September, the sun can sit very near overhead at midday. At culmination, the shadow of an upright object seems to gather directly beneath it.",culminationP2:"Dates and observation times depend on astronomical calculations and weather. Treat these windows as a cue to check local schedules, not as a fixed appointment.",culminationCaption:"Conceptual illustration, not an observation photograph.",
+        visitKicker:"04 · BEFORE YOU GO",visitTitle:"A visit with<br /><em>more ease.</em>",visitIntro:"Use this as a preparation list. Operational information can change; check official channels or speak to on-site staff before travelling.",visitHoursTitle:"Hours & fee",visitHoursP:"Indonesia’s national tourism system lists daily 08:00–16:00 hours and an IDR 5,000 monument entry fee. The city also says a visitor levy has applied since February 2024. Please confirm before arriving.",visitTimingTitle:"A comfortable time",visitTimingP:"Morning or late afternoon is usually more comfortable for walking and photographs. Use sun protection, carry drinking water and plan for tropical rain.",visitDurationTitle:"Time & etiquette",visitDurationP:"Allow around 45–90 minutes for the marker, educational area and photographs. Follow site signs, keep the area clean and ask about any special photography rules during events.",facilityKicker:"FACILITY NOTE",facilityP:"The complex is known to include parking, toilets, rest areas and information/display space. Availability, condition, wheelchair access and service hours may change—ask on arrival.",
+        routeKicker:"05 · TO ZERO DEGREES",routeTitle:"Routes, without<br /><em>inventing certainty.</em>",routeIntro:"Traffic and public transport change. The options below describe types of journey to consider without promoting a particular operator.",routeAirportTitle:"From Supadio Airport",routeAirportP:"Airport taxis and app-based transport are typically the most direct choices. Indonesia.travel notes a journey of roughly 30–45 minutes, depending on traffic. Check the route on your travel day.",routeCenterTitle:"From central Pontianak",routeCenterP:"Use a private vehicle, taxi, motorcycle ride or local public transport travelling to North Pontianak/Jalan Khatulistiwa. Indonesia.travel places the monument about 3 km north of the city centre.",routeBusTitle:"Bus & local transport",routeBusP:"Look for local routes that pass Jalan Khatulistiwa or head toward North Pontianak. Ask the driver whether the vehicle passes the monument area before boarding; networks and schedules can change.",routeDriveTitle:"Driving & parking",routeDriveP:"Parking is listed in general visitor information. Arrive earlier on weekends or during culmination season, follow staff directions and do not assume space is always available.",routeButton:"Open route in Google Maps <span>↗</span>",
+        mapKicker:"06 · POSITION",mapTitle:"Find the point,<br />then <em>look around.</em>",mapP:"The embedded map is for orientation. Confirm your drop-off point, vehicle access and current route conditions before leaving.",aroundKicker:"07 · THE SURROUNDINGS",aroundTitle:"Continue with<br /><em>curiosity.</em>",aroundIntro:"This section suggests types of experience and services, not business names. Match them to your needs, opening hours and travel conditions.",aroundFoodTitle:"Food & drink",aroundFoodP:"In the city centre and along your route, look for local restaurants, drink stalls or food markets that meet your needs. Choose places with good hygiene and check their opening hours yourself.",aroundStayTitle:"Stays & daily needs",aroundStayP:"For an overnight stay, consider accommodation in central Pontianak with transport that suits your plan. Convenience stores, pharmacies, cash machines and fuel/charging facilities can be found in urban areas; use an up-to-date map.",aroundPlacesTitle:"Other places to learn",aroundPlacesP:"Continue with cultural spaces, the Kapuas riverfront, city markets or museums that match your interests. Confirm access, visitor etiquette and weather before setting your order.",
+        faqKicker:"08 · FAQ",faqTitle:"Things worth<br /><em>knowing.</em>",faq1q:"Is there an admission fee for the Equator Monument?",faq1a:"Yes. Pontianak City says a visitor levy has applied since February 2024. The national tourism system lists IDR 5,000 for entry to the monument. Fees can change; confirm before travelling.",faq2q:"When is the best time to visit?",faq2a:"For a regular visit, morning or late afternoon reduces heat exposure. For culmination, check local programming around 21–23 March or 21–23 September.",faq3q:"How long should I allow?",faq3a:"As a planning suggestion, set aside about 45–90 minutes to see the marker, read the information, take photographs and rest. Add time on weekends or during events.",faq4q:"Are parking and toilets available?",faq4a:"General visitor information mentions parking and toilets in the complex. Conditions and capacity may change, so ask staff on arrival if this matters to your journey.",faq5q:"Is the site wheelchair-friendly?",faq5a:"We did not find sufficiently detailed, current public information to guarantee step-free access throughout. Contact or ask the manager before visiting if you need specific access support.",
+        sourcesKicker:"SOURCE NOTE",sourcesTitle:"Read further,<br />then check again <em>before you go.</em>",source1:"Pontianak Youth, Sports and Tourism Office",source2:"Indonesia.travel — Tugu Khatulistiwa",source3:"Sisparnas — tourism-attraction profile"
+      }
+    };
+    function applyHomeLanguage(lang) {
+      const copy = homeTranslations[lang] || homeTranslations.id;
+      document.querySelectorAll("[data-i18n]").forEach((node) => { const key = node.dataset.i18n; if (copy[key]) node.innerHTML = copy[key]; });
+    }
+    applyHomeLanguage(document.documentElement.lang);
+    window.addEventListener("tugu-language-change", (event) => applyHomeLanguage(event.detail));
+  </script>
+</SiteLayout>

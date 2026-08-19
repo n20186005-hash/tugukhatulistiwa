@@ -1,0 +1,105 @@
+---
+// Design reminder: “Astronomical Field Notes” uses paper-like space, indigo structure, terracotta accents, and editorial hierarchy.
+import "../styles/global.css";
+import { site } from "../../site.config.mjs";
+
+interface Props {
+  title: string;
+  description: string;
+  active?: "home" | "privacy" | "terms" | "cookies";
+}
+
+const { title, description, active = "home" } = Astro.props;
+const canonical = site ? new URL(Astro.url.pathname, site).toString() : undefined;
+const logo = "/favicon.svg";
+const homeHref = "/";
+---
+<!doctype html>
+<html lang="id" data-active={active}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#142A42" />
+    <slot name="head" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:image" content={logo} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content" data-i18n="skip">Lewati ke isi utama</a>
+    <header class="site-header">
+      <a class="brand" href={homeHref} aria-label="Tugu Khatulistiwa">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="18"/><path d="M8 34H56"/><circle cx="32" cy="34" r="4.5"/><path d="M32 10V23"/></svg></span>
+        <span class="brand-copy"><b>Tugu Khatulistiwa</b><small data-i18n="brandKicker">Panduan Lapangan Pontianak</small></span>
+      </a>
+      <nav class="desktop-nav" aria-label="Navigasi utama">
+        <a href="/#tentang" data-i18n="navAbout">Tentang</a>
+        <a href="/#sejarah" data-i18n="navHistory">Sejarah</a>
+        <a href="/#kunjungan" data-i18n="navVisit">Kunjungan</a>
+        <a href="/#rute" data-i18n="navRoute">Rute</a>
+        <a href="/#sekitar" data-i18n="navAround">Sekitar</a>
+        <a href="/#faq" data-i18n="navFaq">Tanya jawab</a>
+      </nav>
+      <button class="language-toggle" type="button" data-language-toggle aria-label="Switch language">EN</button>
+    </header>
+    <main id="main-content"><slot /></main>
+    <footer class="site-footer">
+      <div class="footer-rule"><span></span><i></i><span></span></div>
+      <div class="footer-grid">
+        <div>
+          <p class="eyebrow" data-i18n="footerGuide">PANDUAN INDEPENDEN</p>
+          <p data-i18n="footerNonprofit">Situs ini adalah proyek panduan pengunjung independen dan nirlaba; tidak berafiliasi dengan pemerintah atau pengelola resmi mana pun.</p>
+        </div>
+        <div>
+          <p class="eyebrow" data-i18n="footerSourcesLabel">RUJUKAN PUBLIK</p>
+          <p data-i18n="footerSources">Informasi disusun dari materi publik Pemerintah Kota Pontianak, Dinas Pemuda, Olahraga dan Pariwisata Kota Pontianak, serta Indonesia.travel. Tidak ada rekomendasi komersial.</p>
+        </div>
+        <div class="footer-links">
+          <a href="/privacy" data-i18n="privacy">Kebijakan Privasi</a>
+          <a href="/terms" data-i18n="terms">Ketentuan Layanan</a>
+          <a href="/cookies" data-i18n="cookies">Pengaturan Cookie</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span data-i18n="footerPhoto">Foto monumen: SunDawn, CC BY-SA 4.0 (via Wikimedia Commons).</span>
+        <span data-i18n="footerCopyright">© 2026 Panduan Tugu Khatulistiwa. Hak cipta foto tetap pada fotografer masing-masing.</span>
+      </div>
+    </footer>
+    <script is:inline>
+      const translations = {
+        id: {
+          skip: "Lewati ke isi utama", brandKicker: "Panduan Lapangan Pontianak", navAbout: "Tentang", navHistory: "Sejarah", navVisit: "Kunjungan", navRoute: "Rute", navAround: "Sekitar", navFaq: "Tanya jawab",
+          footerGuide: "PANDUAN INDEPENDEN", footerNonprofit: "Situs ini adalah proyek panduan pengunjung independen dan nirlaba; tidak berafiliasi dengan pemerintah atau pengelola resmi mana pun.", footerSourcesLabel: "RUJUKAN PUBLIK", footerSources: "Informasi disusun dari materi publik Pemerintah Kota Pontianak, Dinas Pemuda, Olahraga dan Pariwisata Kota Pontianak, serta Indonesia.travel. Tidak ada rekomendasi komersial.", privacy: "Kebijakan Privasi", terms: "Ketentuan Layanan", cookies: "Pengaturan Cookie", footerPhoto: "Foto monumen: SunDawn, CC BY-SA 4.0 (via Wikimedia Commons).", footerCopyright: "© 2026 Panduan Tugu Khatulistiwa. Hak cipta foto tetap pada fotografer masing-masing."
+        },
+        en: {
+          skip: "Skip to main content", brandKicker: "Pontianak Field Guide", navAbout: "About", navHistory: "History", navVisit: "Visit", navRoute: "Getting there", navAround: "Nearby", navFaq: "FAQ",
+          footerGuide: "INDEPENDENT GUIDE", footerNonprofit: "This is an independent, non-profit visitor-guide project. It is not affiliated with any government body or official site operator.", footerSourcesLabel: "PUBLIC REFERENCES", footerSources: "Information is prepared from public material published by Pontianak City Government, Pontianak Youth, Sports and Tourism Office, and Indonesia.travel. It contains no commercial recommendations.", privacy: "Privacy policy", terms: "Terms of service", cookies: "Cookie settings", footerPhoto: "Monument photo: SunDawn, CC BY-SA 4.0 (via Wikimedia Commons).", footerCopyright: "© 2026 Tugu Khatulistiwa Guide. Image copyright remains with each photographer."
+        }
+      };
+      const languageKey = "tugu-khatulistiwa-language";
+      function applyLanguage(lang) {
+        const dictionary = translations[lang] || translations.id;
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-i18n]").forEach((node) => { const key = node.dataset.i18n; if (dictionary[key]) node.textContent = dictionary[key]; });
+        document.querySelectorAll("[data-i18n-aria]").forEach((node) => { const key = node.dataset.i18nAria; if (dictionary[key]) node.setAttribute("aria-label", dictionary[key]); });
+        document.querySelectorAll("[data-language-toggle]").forEach((button) => { button.textContent = lang === "id" ? "EN" : "ID"; button.setAttribute("aria-label", lang === "id" ? "Switch to English" : "Ganti ke bahasa Indonesia"); });
+        localStorage.setItem(languageKey, lang);
+        window.dispatchEvent(new CustomEvent("tugu-language-change", { detail: lang }));
+      }
+      document.querySelectorAll("[data-language-toggle]").forEach((button) => button.addEventListener("click", () => applyLanguage(document.documentElement.lang === "id" ? "en" : "id")));
+      applyLanguage(localStorage.getItem(languageKey) === "en" ? "en" : "id");
+    </script>
+  </body>
+</html>
