@@ -1,0 +1,8 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "verbatimModuleSyntax": true
+  },
+  "include": ["src"],
+  "exclude": ["client", "server", "shared", "dist", "vite.config.ts"]
+}
