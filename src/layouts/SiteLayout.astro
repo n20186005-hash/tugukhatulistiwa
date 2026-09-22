@@ -1,7 +1,7 @@
 ---
 // Design reminder: “Astronomical Field Notes” uses paper-like space, indigo structure, terracotta accents, and editorial hierarchy.
 import "../styles/global.css";
-import { site } from "../../site.config.mjs";
+import { site, SITE_NAME } from "../../site.config.mjs";
 
 interface Props {
   title: string;
@@ -29,6 +29,7 @@ const homeHref = "/";
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
+    <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:description" content={description} />
     {canonical && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={logo} />

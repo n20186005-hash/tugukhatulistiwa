@@ -1,9 +1,9 @@
 ---
 // Design reminder: a field-guide-like single page, with a continuous equator line, factual labels, true site photography, and restrained scientific illustrations.
 import SiteLayout from "../layouts/SiteLayout.astro";
-import { site } from "../../site.config.mjs";
+import { site, SITE_NAME } from "../../site.config.mjs";
 
-const pageTitle = "Tugu Khatulistiwa — Panduan Lapangan Pontianak";
+const pageTitle = `${SITE_NAME}: Tiket, Jam Buka & Sejarah`;
 const pageDescription = "Panduan independen berbahasa Indonesia dan Inggris untuk Tugu Khatulistiwa di Pontianak.";
 const canonical = site ? new URL("/", site).toString() : undefined;
 const monumentPhoto = "https://commons.wikimedia.org/wiki/Special:FilePath/Pontianak%20Equator%20Monument.jpg?width=1920";

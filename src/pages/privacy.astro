@@ -1,8 +1,9 @@
 ---
 // Design reminder: policy pages are direct, readable field-guide appendices rather than modal interruptions.
 import SiteLayout from "../layouts/SiteLayout.astro";
+import { withSiteName } from "../../site.config.mjs";
 ---
-<SiteLayout title="Kebijakan Privasi — Tugu Khatulistiwa" description="Kebijakan privasi untuk Panduan Tugu Khatulistiwa.">
+<SiteLayout title={withSiteName("Kebijakan Privasi")} description="Kebijakan privasi untuk Panduan Tugu Khatulistiwa.">
   <article class="policy-page prose-page">
     <p class="eyebrow" data-i18n="privacyKicker">DOKUMEN · 01</p>
     <h1 data-i18n="privacyTitle">Kebijakan<br /><em>Privasi.</em></h1>

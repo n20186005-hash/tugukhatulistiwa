@@ -1,8 +1,9 @@
 ---
 // Design reminder: consent is a direct, transparent field-note page, not an opaque modal.
 import SiteLayout from "../layouts/SiteLayout.astro";
+import { withSiteName } from "../../site.config.mjs";
 ---
-<SiteLayout title="Pengaturan Cookie — Tugu Khatulistiwa" description="Pengaturan cookie untuk Panduan Tugu Khatulistiwa.">
+<SiteLayout title={withSiteName("Pengaturan Cookie")} description="Pengaturan cookie untuk Panduan Tugu Khatulistiwa.">
   <article class="policy-page cookie-page">
     <p class="eyebrow" data-i18n="cookieKicker">DOKUMEN · 03</p><h1 data-i18n="cookieTitle">Pengaturan<br /><em>Cookie.</em></h1><p class="policy-updated" data-i18n="updated">Terakhir diperbarui: Agustus 2026</p>
     <p class="policy-lede" data-i18n="cookieLede">Cookie membantu situs mengingat preferensi Anda. Anda dapat mengelola izin analitik di bawah ini kapan saja.</p>
