@@ -1,0 +1,11 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import HomeContent from "../../components/HomeContent.astro";
+import { SITE_NAME_EN } from "../../../site.config.mjs";
+
+const title = `${SITE_NAME_EN}: Tickets, Hours & History`;
+const description = "Independent visitor guide to the Equator Monument in Pontianak: history, opening hours, ticket price, how to get there, and the solar culmination phenomenon.";
+---
+<SiteLayout title={title} description={description} locale="en" path="/">
+  <HomeContent locale="en" />
+</SiteLayout>

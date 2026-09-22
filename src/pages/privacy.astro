@@ -1,20 +1,13 @@
 ---
-// Design reminder: policy pages are direct, readable field-guide appendices rather than modal interruptions.
 import SiteLayout from "../layouts/SiteLayout.astro";
-import { withSiteName } from "../../site.config.mjs";
+import LegalPage from "../components/LegalPage.astro";
+import { legal } from "../legal.ts";
+import { SITE_NAME } from "../../site.config.mjs";
+
+const doc = "privacy";
+const g = legal[doc]["id"];
+const title = `${g.title.replace(/<[^>]+>/g, "")} | ${SITE_NAME}`;
 ---
-<SiteLayout title={withSiteName("Kebijakan Privasi")} description="Kebijakan privasi untuk Panduan Tugu Khatulistiwa.">
-  <article class="policy-page prose-page">
-    <p class="eyebrow" data-i18n="privacyKicker">DOKUMEN · 01</p>
-    <h1 data-i18n="privacyTitle">Kebijakan<br /><em>Privasi.</em></h1>
-    <p class="policy-updated" data-i18n="updated">Terakhir diperbarui: Agustus 2026</p>
-    <p class="policy-lede" data-i18n="privacyLede">Kami mengumpulkan jumlah data minimum yang diperlukan untuk menjalankan situs panduan independen ini dan memahami penggunaan secara agregat.</p>
-    <section><h2 data-i18n="privacyH1">Informasi yang kami kumpulkan</h2><p data-i18n="privacyP1">Data dapat mencakup informasi penelusuran dasar seperti alamat IP, tipe browser dan halaman yang dikunjungi; cookie serta teknologi serupa; dan informasi yang Anda berikan secara sukarela melalui kontak atau email.</p></section>
-    <section><h2 data-i18n="privacyH2">Cara kami menggunakannya</h2><p data-i18n="privacyP2">Kami menggunakannya untuk memperbaiki isi dan pengalaman situs, memahami pola penggunaan secara agregat, menanggapi permintaan, dan memenuhi kewajiban hukum yang berlaku.</p></section>
-    <section><h2 data-i18n="privacyH3">Layanan pihak ketiga</h2><p data-i18n="privacyP3">Situs ini dapat memuat Google Maps untuk peta lokasi. Google Analytics hanya dimuat bila Anda mengizinkan cookie analitik. Layanan tersebut memiliki kebijakan privasinya sendiri.</p></section>
-    <section><h2 data-i18n="privacyH4">Hak Anda</h2><p data-i18n="privacyP4">Sesuai GDPR dan peraturan yang relevan, Anda dapat meminta akses, koreksi atau penghapusan data pribadi, menolak pemrosesan tertentu, atau mengajukan keluhan kepada otoritas terkait.</p></section>
-  </article>
-  <script is:inline>
-    const privacyCopy={id:{privacyKicker:"DOKUMEN · 01",privacyTitle:"Kebijakan<br /><em>Privasi.</em>",updated:"Terakhir diperbarui: Agustus 2026",privacyLede:"Kami mengumpulkan jumlah data minimum yang diperlukan untuk menjalankan situs panduan independen ini dan memahami penggunaan secara agregat.",privacyH1:"Informasi yang kami kumpulkan",privacyP1:"Data dapat mencakup informasi penelusuran dasar seperti alamat IP, tipe browser dan halaman yang dikunjungi; cookie serta teknologi serupa; dan informasi yang Anda berikan secara sukarela melalui kontak atau email.",privacyH2:"Cara kami menggunakannya",privacyP2:"Kami menggunakannya untuk memperbaiki isi dan pengalaman situs, memahami pola penggunaan secara agregat, menanggapi permintaan, dan memenuhi kewajiban hukum yang berlaku.",privacyH3:"Layanan pihak ketiga",privacyP3:"Situs ini dapat memuat Google Maps untuk peta lokasi. Google Analytics hanya dimuat bila Anda mengizinkan cookie analitik. Layanan tersebut memiliki kebijakan privasinya sendiri.",privacyH4:"Hak Anda",privacyP4:"Sesuai GDPR dan peraturan yang relevan, Anda dapat meminta akses, koreksi atau penghapusan data pribadi, menolak pemrosesan tertentu, atau mengajukan keluhan kepada otoritas terkait."},en:{privacyKicker:"DOCUMENT · 01",privacyTitle:"Privacy<br /><em>Policy.</em>",updated:"Last updated: August 2026",privacyLede:"We collect the minimum data needed to run this independent guide and to understand use in aggregate.",privacyH1:"Information we collect",privacyP1:"This may include basic browsing information such as IP address, browser type and pages visited; cookies and similar technologies; and information you voluntarily provide through contact or email.",privacyH2:"How we use it",privacyP2:"We use it to improve site content and experience, understand aggregate usage patterns, respond to requests, and meet applicable legal obligations.",privacyH3:"Third-party services",privacyP3:"This site may embed Google Maps for location mapping. Google Analytics is loaded only when you allow analytics cookies. These services maintain their own privacy policies.",privacyH4:"Your rights",privacyP4:"Under the GDPR and relevant regulations, you may request access, correction or deletion of personal data, object to certain processing, or lodge a complaint with a relevant authority."}};function applyPrivacy(lang){const c=privacyCopy[lang]||privacyCopy.id;document.querySelectorAll('[data-i18n]').forEach(n=>{if(c[n.dataset.i18n])n.innerHTML=c[n.dataset.i18n]})}applyPrivacy(document.documentElement.lang);window.addEventListener('tugu-language-change',e=>applyPrivacy(e.detail));
-  </script>
+<SiteLayout title={title} description={g.lede} locale="id" path={`/${doc}`}>
+  <LegalPage locale="id" doc={doc} />
 </SiteLayout>

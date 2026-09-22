@@ -1,0 +1,13 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import GuidePage from "../../components/GuidePage.astro";
+import { guides } from "../../guides.ts";
+import { SITE_NAME_EN } from "../../../site.config.mjs";
+
+const topic = "tiket-jam-buka";
+const g = guides[topic]["en"];
+const title = `${g.title} | ${SITE_NAME_EN}`;
+---
+<SiteLayout title={title} description={g.description} locale="en" path={`/${topic}`}>
+  <GuidePage locale="en" topic={topic} />
+</SiteLayout>

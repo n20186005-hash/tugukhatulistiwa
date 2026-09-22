@@ -1,0 +1,65 @@
+---
+import { legal, type LegalDoc } from "../legal";
+import type { Locale } from "../i18n.ts";
+
+interface Props {
+  locale: Locale;
+  doc: LegalDoc;
+}
+const { locale, doc } = Astro.props;
+const g = legal[doc][locale];
+---
+<article class="policy-page prose-page">
+  <p class="eyebrow">{g.kicker}</p>
+  <h1 set:html={g.title}></h1>
+  <p class="policy-updated">{g.updated}</p>
+  <p class="policy-lede">{g.lede}</p>
+  {g.sections.map((s) => (
+    <section><h2>{s.heading}</h2><p>{s.body}</p></section>
+  ))}
+
+  {doc === "cookies" && g.labels && (
+    <div class="cookie-page-inner">
+      <div class="cookie-option"><div><h2>{g.sections[0].heading}</h2><p>{g.sections[0].body}</p></div><span class="cookie-status">{g.labels.alwaysOn}</span></div>
+      <label class="cookie-option toggle-row" for="analytics-consent">
+        <div><h2>{g.sections[1].heading}</h2><p>{g.sections[1].body}</p></div>
+        <input id="analytics-consent" type="checkbox" /><span class="toggle-ui" aria-hidden="true"></span>
+      </label>
+      <div class="cookie-option"><div><h2>{g.sections[2].heading}</h2><p>{g.sections[2].body}</p></div></div>
+      <div class="cookie-actions">
+        <button class="button button-ink" type="button" id="save-cookie">{g.labels.save}</button>
+        <button class="text-link" type="button" id="reject-all">{g.labels.reject}</button>
+      </div>
+      <p id="cookie-feedback" class="form-feedback" data-saved={g.labels.saved} aria-live="polite"></p>
+    </div>
+  )}
+</article>
+
+{doc === "cookies" && (
+  <script is:inline>
+    const consentKey = "tugu-khatulistiwa-analytics";
+    const input = document.getElementById("analytics-consent");
+    const fb = document.getElementById("cookie-feedback");
+    function enableAnalytics() {
+      if (document.querySelector("[data-ga4]")) return;
+      const s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP";
+      s.dataset.ga4 = "true";
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag("js", new Date());
+      window.gtag("config", "G-HXM22WWPKP");
+    }
+    function save(v) {
+      localStorage.setItem(consentKey, v ? "granted" : "denied");
+      if (v) enableAnalytics();
+      fb.textContent = fb.dataset.saved;
+    }
+    input.checked = localStorage.getItem(consentKey) === "granted";
+    document.getElementById("save-cookie").addEventListener("click", () => save(input.checked));
+    document.getElementById("reject-all").addEventListener("click", () => { input.checked = false; save(false); });
+    if (input.checked) enableAnalytics();
+  </script>
+)}

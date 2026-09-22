@@ -1,0 +1,13 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import LegalPage from "../../components/LegalPage.astro";
+import { legal } from "../../legal.ts";
+import { SITE_NAME_EN } from "../../../site.config.mjs";
+
+const doc = "cookies";
+const g = legal[doc]["en"];
+const title = `${g.title.replace(/<[^>]+>/g, "")} | ${SITE_NAME_EN}`;
+---
+<SiteLayout title={title} description={g.lede} locale="en" path={`/${doc}`}>
+  <LegalPage locale="en" doc={doc} />
+</SiteLayout>

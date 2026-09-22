@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://tugukhatulistiwa.com/sitemap-index.xml
