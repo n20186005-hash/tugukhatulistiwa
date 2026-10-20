@@ -6,7 +6,7 @@ import { SITE_NAME_EN } from "../../../site.config.mjs";
 
 const doc = "privacy";
 const g = legal[doc]["en"];
-const title = `${g.title.replace(/<[^>]+>/g, "")} | ${SITE_NAME_EN}`;
+const title = `${g.title.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()} | ${SITE_NAME_EN}`;
 ---
 <SiteLayout title={title} description={g.lede} locale="en" path={`/${doc}`}>
   <LegalPage locale="en" doc={doc} />

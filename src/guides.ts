@@ -14,7 +14,7 @@ export const guides: Record<GuideTopic, Record<Locale, GuideContent>> = {
   "sejarah": {
     "id": {
       "title": "Sejarah Tugu Khatulistiwa",
-      "description": "Sejarah Tugu Khatulistiwa Pontianak, dari tonggak kayu 1928 hingga monumen ikonik yang melindungi jejak penanda awal.",
+      "description": "Sejarah Tugu Khatulistiwa Pontianak, dari penanda 1928 hingga monumen ikonik yang melindungi jejak penanda awal.",
       "intro": [
         "Tugu Khatulistiwa menandai kawasan yang dilalui garis khatulistiwa di Jalan Khatulistiwa, Batu Layang, Pontianak Utara. Lebih dari sekadar titik foto, tempat ini menghubungkan geografi, astronomi, dan sejarah pemetaan.",
         "Bentuknya tidak lahir sekaligus. Monumen saat ini adalah hasil beberapa tahap penandaan yang dimulai sebagai alat survei geografis pada awal abad ke-20."
@@ -46,7 +46,7 @@ export const guides: Record<GuideTopic, Record<Locale, GuideContent>> = {
     },
     "en": {
       "title": "History of the Equator Monument",
-      "description": "The history of the Equator Monument in Pontianak, from a 1928 wooden stake to the landmark that now protects traces of the original marker.",
+      "description": "The history of the Equator Monument in Pontianak, from a 1928 marker to the landmark that now protects traces of the original marker.",
       "intro": [
         "Tugu Khatulistiwa marks the area crossed by the equator on Jalan Khatulistiwa in Batu Layang, North Pontianak. More than a photo stop, it connects geography, astronomy and the history of mapping.",
         "Its form did not appear all at once. The present monument is the result of several marking stages that began as a geographical-survey tool in the early 20th century."
