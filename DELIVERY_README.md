@@ -8,6 +8,9 @@
 
 ## 图片与远程服务
 
-`assets/` 包含当前网站的真实纪念碑摄影文件以及全部为该项目制作的标志和科学插画。生产页面为保持图片许可可追溯，默认引用 Wikimedia Commons 的原始文件入口；若需完全离线运行，可将 `assets/pontianak-equator-monument-sundawn.jpg` 放入托管静态资源目录，并将 `src/pages/index.astro` 的 `monumentPhoto` 常量改为相应本地路径。
-
+`assets/` 保留已有摄影与项目视觉原文件。站点实际使用本地 `public/images/hero.jpg`；Wikimedia Commons 链接用于图片来源致谢，不是页面图片热链。保留SunDawn/CC BY-SA 4.0署名。
 Google Maps iframe、Google Fonts 和在用户同意后才加载的 Google Analytics 属于第三方服务，因此不包含在压缩包中。网站本身的源代码、favicon、样式、脚本、页面和可部署构建产物均已包含。
+
+## 本轮部署约定
+
+域名在site.config.mjs固定为https://tugukhatulistiwa.com。使用根wrangler.jsonc，实际项目名由Cloudflare官方GitHub check映射为tugukhatulistiwa。build不再向公共dist输出wrangler.json；部署命令应使用根配置。Worker负责HTTP/www规范跳转和ASSETS真实404；新增及既有ID/EN产物均纳入提交。

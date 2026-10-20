@@ -15,7 +15,7 @@ export default defineConfig({
   ...(site
     ? {
         site,
-        integrations: [sitemap()],
+        integrations: [sitemap({ filter: (page) => !page.endsWith("/404/") })],
       }
     : {}),
 });

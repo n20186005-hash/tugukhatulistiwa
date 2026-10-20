@@ -1,0 +1,15 @@
+import { readFileSync } from 'node:fs';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+const layout=[...readFileSync('src/layouts/SiteLayout.astro','utf8').matchAll(/<script is:inline>([\s\S]*?)<\/script>/g)].map(m=>m[1]).find(s=>s.includes('setTuguAnalytics'));
+const legal=readFileSync('src/components/LegalPage.astro','utf8').match(/<script is:inline>([\s\S]*?)<\/script>/)[1];
+const nodes=new Map();
+const get=id=>{if(!nodes.has(id))nodes.set(id,{checked:false,dataset:{saved:'saved'},events:{},addEventListener(event,fn){this.events[event]=fn;}});return nodes.get(id);};
+const loaded=[];
+const context={window:{},localStorage:{getItem(){throw Error('blocked');},setItem(){throw Error('blocked');}},document:{documentElement:{lang:'en'},getElementById:get,querySelector:()=>loaded[0],createElement:()=>({dataset:{}}),head:{appendChild:s=>loaded.push(s)}}};
+vm.runInNewContext(legal,context);vm.runInNewContext(layout,context);
+assert.equal(context.window['ga-disable-G-HXM22WWPKP'],true);assert.equal(loaded.length,0);
+get('analytics-consent').checked=true;get('save-cookie').events.click();
+assert.equal(context.window['ga-disable-G-HXM22WWPKP'],false);assert.equal(loaded.length,1);assert.match(get('cookie-feedback').textContent,/could not be saved/);
+get('reject-all').events.click();assert.equal(context.window['ga-disable-G-HXM22WWPKP'],true);assert.equal(loaded.length,1);
+console.log('Consent: storage exceptions, current-page grant and immediate refusal passed.');

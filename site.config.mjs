@@ -1,7 +1,7 @@
 import "dotenv/config";
 
 /** Single source of truth for the production origin. Leave empty until a real domain is configured. */
-export const site = process.env.PUBLIC_SITE_URL?.replace(/\/$/, "") || "";
+export const site = "https://tugukhatulistiwa.com";
 
 // SEO site name following the "attraction + city + travel guide" convention.
 export const SITE_NAME = "Tugu Khatulistiwa Pontianak — Panduan Wisata";

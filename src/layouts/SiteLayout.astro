@@ -62,7 +62,7 @@ const legal = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <title>{title}</title>
+    <meta name="twitter:card" content="summary_large_image" /><title>{title}</title>
   </head>
   <body>
     <a class="skip-link" href="#main-content">{t(locale, "skip")}</a>
@@ -101,6 +101,24 @@ const legal = {
         <span>{t(locale, "footerCopyright")}</span>
       </div>
     </footer>
+    <script is:inline>
+    (() => {
+      const GA_ID = 'G-HXM22WWPKP';
+      window.setTuguAnalytics = enabled => {
+        window['ga-disable-' + GA_ID] = !enabled;
+        if (!enabled || document.querySelector('[data-ga4]')) return;
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        window.gtag('js', new Date()); window.gtag('config', GA_ID, { anonymize_ip: true });
+        const script = document.createElement('script'); script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+        script.dataset.ga4 = 'consented'; document.head.appendChild(script);
+      };
+      let enabled = false;
+      try { enabled = localStorage.getItem('tugu-khatulistiwa-analytics') === 'granted'; } catch {}
+      window.setTuguAnalytics(enabled);
+    })();
+    </script>
     <script is:inline>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));

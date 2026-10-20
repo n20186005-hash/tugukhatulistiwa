@@ -37,29 +37,19 @@ const g = legal[doc][locale];
 
 {doc === "cookies" && (
   <script is:inline>
-    const consentKey = "tugu-khatulistiwa-analytics";
-    const input = document.getElementById("analytics-consent");
-    const fb = document.getElementById("cookie-feedback");
-    function enableAnalytics() {
-      if (document.querySelector("[data-ga4]")) return;
-      const s = document.createElement("script");
-      s.async = true;
-      s.src = "https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP";
-      s.dataset.ga4 = "true";
-      document.head.appendChild(s);
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function () { window.dataLayer.push(arguments); };
-      window.gtag("js", new Date());
-      window.gtag("config", "G-HXM22WWPKP");
-    }
-    function save(v) {
-      localStorage.setItem(consentKey, v ? "granted" : "denied");
-      if (v) enableAnalytics();
-      fb.textContent = fb.dataset.saved;
-    }
-    input.checked = localStorage.getItem(consentKey) === "granted";
-    document.getElementById("save-cookie").addEventListener("click", () => save(input.checked));
-    document.getElementById("reject-all").addEventListener("click", () => { input.checked = false; save(false); });
-    if (input.checked) enableAnalytics();
+  (() => {
+    const key = 'tugu-khatulistiwa-analytics';
+    const input = document.getElementById('analytics-consent');
+    const fb = document.getElementById('cookie-feedback');
+    try { input.checked = localStorage.getItem(key) === 'granted'; } catch { input.checked = false; }
+    const save = enabled => {
+      window.setTuguAnalytics?.(enabled);
+      let saved = false;
+      try { localStorage.setItem(key, enabled ? 'granted' : 'denied'); saved = true; } catch {}
+      if (fb) fb.textContent = saved ? fb.dataset.saved : (document.documentElement.lang === 'en' ? 'Choice applies to this page, but could not be saved for later visits.' : 'Pilihan berlaku pada halaman ini, tetapi tidak dapat disimpan untuk kunjungan berikutnya.');
+    };
+    document.getElementById('save-cookie')?.addEventListener('click', () => save(input?.checked === true));
+    document.getElementById('reject-all')?.addEventListener('click', () => { input.checked = false; save(false); });
+  })();
   </script>
 )}

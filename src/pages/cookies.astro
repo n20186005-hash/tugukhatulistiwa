@@ -6,7 +6,7 @@ import { SITE_NAME } from "../../site.config.mjs";
 
 const doc = "cookies";
 const g = legal[doc]["id"];
-const title = `${g.title.replace(/<[^>]+>/g, "")} | ${SITE_NAME}`;
+const title = `${g.title.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()} | ${SITE_NAME}`;
 ---
 <SiteLayout title={title} description={g.lede} locale="id" path={`/${doc}`}>
   <LegalPage locale="id" doc={doc} />

@@ -1,7 +1,7 @@
 ---
 // Homepage body, rendered server-side for a given locale.
 import { t, faq, type Locale } from "../i18n";
-import { site, heroImage, monumentPhoto, mapUrl, GOVT_TOURISM_URL } from "../../site.config.mjs";
+import { site, heroImage, monumentPhoto, mapUrl } from "../../site.config.mjs";
 
 interface Props {
   locale: Locale;
@@ -15,21 +15,18 @@ const attractionDescription =
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": ["TouristAttraction", "LocalBusiness"],
+  "@type": "TouristAttraction",
   "@id": site ? `${site}/#attraction` : undefined,
   name: "Tugu Khatulistiwa",
   alternateName: ["Equator Monument", "Tugu Khatulistiwa Pontianak", "Khatulistiwa Park"],
   url: site || undefined,
   description: attractionDescription,
   image: [site ? new URL(heroImage, site).toString() : heroImage],
-  isAccessibleForFree: false,
   hasMap: mapUrl,
-  sameAs: [mapUrl, GOVT_TOURISM_URL],
+  sameAs: [mapUrl],
   address: { "@type": "PostalAddress", streetAddress: "Jl. Khatulistiwa, Batu Layang, Pontianak Utara", addressLocality: "Kota Pontianak", addressRegion: "Kalimantan Barat", postalCode: "78244", addressCountry: "ID" },
-  geo: { "@type": "GeoCoordinates", latitude: "0.000721", longitude: "109.322105" },
-  openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "08:00", closes: "16:00" }],
-  priceRange: "IDR 5,000",
-  aggregateRating: { "@type": "AggregateRating", ratingValue: "4.5", bestRating: "5", worstRating: "1", ratingCount: "9426" },
+  geo: { "@type": "GeoCoordinates", latitude: 0.000921, longitude: 109.3223955 },
+
 };
 
 const faqJsonLd = {
@@ -63,7 +60,7 @@ const faqJsonLd = {
       <p class="ledger-label">{t(locale, "ledgerLabel")}</p>
       <dl>
         <div><dt>{t(locale, "ledgerPlace")}</dt><dd>{t(locale, "ledgerPlaceValue")}</dd></div>
-        <div><dt>{t(locale, "ledgerLatitude")}</dt><dd>0°</dd></div>
+        <div><dt>{t(locale, "ledgerLatitude")}</dt><dd>0.000921°</dd></div>
         <div><dt>{t(locale, "ledgerDuration")}</dt><dd>{t(locale, "ledgerDurationValue")}</dd></div>
         <div><dt>{t(locale, "ledgerHours")}</dt><dd>{t(locale, "ledgerHoursValue")}</dd></div>
       </dl>
@@ -88,7 +85,7 @@ const faqJsonLd = {
       <div><span>0°</span><p set:html={t(locale, "factZero")}></p></div>
       <div><span>1928</span><p set:html={t(locale, "factYear")}></p></div>
       <div><span>2×</span><p set:html={t(locale, "factTwice")}></p></div>
-      <div><span>±3 km</span><p set:html={t(locale, "factDistance")}></p></div>
+      <div><span>78244</span><p set:html={t(locale, "factDistance")}></p></div>
     </div>
   </section>
 
@@ -102,7 +99,7 @@ const faqJsonLd = {
         <li><span>1928</span><p>{t(locale, "timeline1")}</p></li>
         <li><span>1930</span><p>{t(locale, "timeline2")}</p></li>
         <li><span>1938</span><p>{t(locale, "timeline3")}</p></li>
-        <li><span>1990</span><p>{t(locale, "timeline4")}</p></li>
+        <li><span>1990–91</span><p>{t(locale, "timeline4")}</p></li>
       </ol>
       <p class="source-note">{t(locale, "historySource")}</p>
     </div>
@@ -147,7 +144,7 @@ const faqJsonLd = {
 
   <section class="map-section" aria-label="Peta Tugu Khatulistiwa">
     <div class="map-copy"><p class="eyebrow light">{t(locale, "mapKicker")}</p><h2 set:html={t(locale, "mapTitle")}></h2><p>{t(locale, "mapP")}</p></div>
-    <iframe title="Peta Tugu Khatulistiwa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6899.06084470204!2d109.3198152124356!3d0.000920999999069569!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31e2a75b7f18d41d%3A0x959992e0a47ea028!2z6LWk6YGT57qq5b-156KR!5e1!3m2!1szh-CN!2sjp!4v1787105931228!5m2!1szh-CN!2sjp" width="600" height="450" style="border:0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <iframe title="Peta Tugu Khatulistiwa" src="https://www.google.com/maps?q=0.000921,109.3223955&amp;output=embed" width="600" height="450" style="border:0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
   </section>
 
   <section class="around-section" id="sekitar">
@@ -174,9 +171,9 @@ const faqJsonLd = {
   <section class="sources-section">
     <div><p class="eyebrow">{t(locale, "sourcesKicker")}</p><h2 set:html={t(locale, "sourcesTitle")}></h2></div>
     <div class="source-links">
-      <a href="https://disporapar.pontianak.go.id/pariwisata/6" target="_blank" rel="noreferrer"><span>01</span><b>{t(locale, "source1")}</b><i>↗</i></a>
+      <a href="https://www.pontianak.go.id/pontianak-hari-ini/berita/Robby-3-Wheels-Terkesan-Tiada-Bayangan-di-Tugu-Khatulistiwa" target="_blank" rel="noreferrer"><span>01</span><b>{t(locale, "source1")}</b><i>↗</i></a>
       <a href="https://www.indonesia.travel/id/id/travel-ideas/culture/tugu-khatulistiwa" target="_blank" rel="noreferrer"><span>02</span><b>{t(locale, "source2")}</b><i>↗</i></a>
-      <a href="https://sisparnas.kemenpar.go.id/p/79955" target="_blank" rel="noreferrer"><span>03</span><b>{t(locale, "source3")}</b><i>↗</i></a>
+      <a href="https://maps.app.goo.gl/D3JkJPVsLY13MFNv8" target="_blank" rel="noreferrer"><span>03</span><b>{t(locale, "source3")}</b><i>↗</i></a>
     </div>
   </section>
 </Fragment>
