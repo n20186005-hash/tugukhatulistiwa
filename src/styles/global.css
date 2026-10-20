@@ -24,3 +24,7 @@
 
 .site-header a,.footer-links a,button{min-height:44px;display:inline-flex;align-items:center;}.language-toggle{min-width:44px;min-height:44px;justify-content:center;}main :is(h1,h2,h3,p,li,dd){overflow-wrap:anywhere;}main :is(section,article,div,aside,figure){min-width:0;}
 @media(max-width:960px){.site-header{height:auto;position:relative;flex-wrap:wrap;gap:.5rem 1rem;padding-top:.8rem;padding-bottom:.8rem;}.desktop-nav{display:flex;order:3;width:100%;flex-wrap:wrap;gap:0 1rem;margin:0;}.language-toggle{margin-left:auto;}.brand{min-width:0;}}
+
+/* Stack the visit summary below the introduction when space is limited. */
+@media(max-width:960px){.hero{display:block;min-height:0;}.hero-copy{width:100%;max-width:none;min-width:0;}.hero h1{font-size:clamp(3.2rem,9.5vw,5.5rem);}.hero-ledger{position:relative;right:auto;bottom:auto;width:100%;max-width:none;margin-top:2rem;}}
+@media(max-width:640px){.hero h1{font-size:clamp(2.6rem,13vw,3.5rem);line-height:.96;}.hero-ledger dd{max-width:65%;overflow-wrap:normal;}}
