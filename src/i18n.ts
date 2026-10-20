@@ -237,15 +237,16 @@ export const faq: Record<Locale, { q: string; a: string }[]> = {
 
 /** Localized URL path for a base (id) path + locale. */
 export function localizedPath(path: string, locale: Locale): string {
-  if (locale === "en") return path === "/" ? "/en/" : `/en${path}`;
-  return path;
+  const normalized = path === "/" ? "/" : `${path.replace(/\/+$/, "")}/`;
+  if (locale === "en") return normalized === "/" ? "/en/" : `/en${normalized}`;
+  return normalized;
 }
 
 /** hreflang alternates for a base (id) path. */
 export function hreflangAlternates(path: string, site: string) {
   const clean = site.replace(/\/$/, "");
-  const idHref = clean + (path === "/" ? "/" : path);
-  const enHref = clean + (path === "/" ? "/en/" : `/en${path}`);
+  const idHref = clean + localizedPath(path, "id");
+  const enHref = clean + localizedPath(path, "en");
   return [
     { lang: "id", href: idHref },
     { lang: "en", href: enHref },
