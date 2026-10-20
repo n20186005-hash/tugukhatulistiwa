@@ -19,9 +19,9 @@ export const legal: Record<LegalDoc, Record<Locale, LegalContent>> = {
       updated: "Terakhir diperbarui: Agustus 2026",
       lede: "Kami mengumpulkan jumlah data minimum yang diperlukan untuk menjalankan situs panduan independen ini dan memahami penggunaan secara agregat.",
       sections: [
-        { heading: "Informasi yang kami kumpulkan", body: "Data dapat mencakup informasi penelusuran dasar seperti alamat IP, tipe browser dan halaman yang dikunjungi; cookie serta teknologi serupa; dan informasi yang Anda berikan secara sukarela melalui kontak atau email." },
-        { heading: "Cara kami menggunakannya", body: "Kami menggunakannya untuk memperbaiki isi dan pengalaman situs, memahami pola penggunaan secara agregat, menanggapi permintaan, dan memenuhi kewajiban hukum yang berlaku." },
-        { heading: "Layanan pihak ketiga", body: "Situs ini dapat memuat Google Maps untuk peta lokasi. Google Analytics hanya dimuat bila Anda mengizinkan cookie analitik. Layanan tersebut memiliki kebijakan privasinya sendiri." },
+        { heading: "Informasi yang kami kumpulkan", body: "Data dapat mencakup informasi penelusuran dasar seperti alamat IP, tipe browser dan halaman yang dikunjungi; cookie serta teknologi serupa. Situs ini tidak menyediakan akun, formulir pemesanan atau formulir kontak." },
+        { heading: "Cara kami menggunakannya", body: "Kami menggunakannya untuk memperbaiki isi dan pengalaman situs, memahami pola penggunaan secara agregat, dan memenuhi kewajiban hukum yang berlaku." },
+        { heading: "Layanan pihak ketiga", body: "Situs menggunakan Google Fonts untuk jenis huruf dan dapat memuat Google Maps untuk peta lokasi. Google Analytics hanya dimuat bila Anda mengizinkan cookie analitik. Layanan tersebut memiliki kebijakan privasinya sendiri." },
         { heading: "Hak Anda", body: "Sesuai GDPR dan peraturan yang relevan, Anda dapat meminta akses, koreksi atau penghapusan data pribadi, menolak pemrosesan tertentu, atau mengajukan keluhan kepada otoritas terkait." },
       ],
     },
@@ -31,9 +31,9 @@ export const legal: Record<LegalDoc, Record<Locale, LegalContent>> = {
       updated: "Last updated: August 2026",
       lede: "We collect the minimum data needed to run this independent guide and to understand use in aggregate.",
       sections: [
-        { heading: "Information we collect", body: "This may include basic browsing information such as IP address, browser type and pages visited; cookies and similar technologies; and information you voluntarily provide through contact or email." },
-        { heading: "How we use it", body: "We use it to improve site content and experience, understand aggregate usage patterns, respond to requests, and meet applicable legal obligations." },
-        { heading: "Third-party services", body: "This site may embed Google Maps for location mapping. Google Analytics is loaded only when you allow analytics cookies. These services maintain their own privacy policies." },
+        { heading: "Information we collect", body: "This may include basic browsing information such as IP address, browser type and pages visited; cookies and similar technologies. This site has no account, booking form or contact form." },
+        { heading: "How we use it", body: "We use it to improve site content and experience, understand aggregate usage patterns, and meet applicable legal obligations." },
+        { heading: "Third-party services", body: "This site uses Google Fonts for typefaces and may embed Google Maps for location mapping. Google Analytics is loaded only when you allow analytics cookies. These services maintain their own privacy policies." },
         { heading: "Your rights", body: "Under the GDPR and relevant regulations, you may request access, correction or deletion of personal data, object to certain processing, or lodge a complaint with a relevant authority." },
       ],
     },
@@ -72,7 +72,7 @@ export const legal: Record<LegalDoc, Record<Locale, LegalContent>> = {
       lede: "Cookie membantu situs mengingat preferensi Anda. Anda dapat mengelola izin analitik di bawah ini kapan saja.",
       sections: [
         { heading: "Cookie penting", body: "Diperlukan agar pengaturan dasar situs berfungsi dan tidak dapat dimatikan di halaman ini." },
-        { heading: "Cookie analitik", body: "Jika diizinkan, Google Analytics mengumpulkan data penggunaan anonim untuk membantu memahami bagaimana panduan ini digunakan." },
+        { heading: "Cookie analitik", body: "Jika diizinkan, Google Analytics mengumpulkan data penggunaan agregat untuk membantu memahami bagaimana panduan ini digunakan." },
         { heading: "Preferensi", body: "Pilihan bahasa disimpan secara lokal di browser Anda agar kunjungan berikutnya konsisten." },
       ],
       labels: { save: "Simpan preferensi", reject: "Tolak analitik", saved: "Preferensi Anda telah disimpan.", alwaysOn: "Selalu aktif" },
@@ -84,7 +84,7 @@ export const legal: Record<LegalDoc, Record<Locale, LegalContent>> = {
       lede: "Cookies help the site remember your preferences. You can manage analytics permission below at any time.",
       sections: [
         { heading: "Essential cookies", body: "These are needed for basic site settings to work and cannot be turned off on this page." },
-        { heading: "Analytics cookies", body: "If allowed, Google Analytics collects anonymous usage data to help us understand how this guide is used." },
+        { heading: "Analytics cookies", body: "If allowed, Google Analytics collects aggregate usage data to help us understand how this guide is used." },
         { heading: "Preferences", body: "Your language choice is saved locally in your browser so later visits remain consistent." },
       ],
       labels: { save: "Save preferences", reject: "Reject analytics", saved: "Your preferences have been saved.", alwaysOn: "Always active" },

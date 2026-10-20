@@ -1,4 +1,4 @@
-const CACHE = "tugu-khatulistiwa-v1";
+const CACHE = "tugu-khatulistiwa-v2";
 const PRECACHE = ["/", "/manifest.webmanifest", "/favicon.svg"];
 
 self.addEventListener("install", (event) => {
@@ -27,7 +27,7 @@ self.addEventListener("fetch", (event) => {
           caches.open(CACHE).then((c) => c.put(req, copy));
           return res;
         })
-        .catch(() => caches.match(req).then((r) => r || caches.match("/")))
+        .catch(() => caches.match(req).then((r) => r || new Response("Offline: page unavailable", { status: 404, headers: { "Content-Type": "text/plain; charset=utf-8", "X-Robots-Tag": "noindex, follow" } })))
     );
     return;
   }

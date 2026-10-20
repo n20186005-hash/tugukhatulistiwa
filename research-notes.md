@@ -1,23 +1,14 @@
 # 已核实资料摘要
 
-## 景点识别
+## 本轮核对：2026-10-19
 
-地图地址对应印尼西加里曼丹省 Pontianak 市 Pontianak Utara 区 Batu Layang 一带的 **Tugu Khatulistiwa（赤道纪念碑／Equator Monument）**。其地址为 Jalan Khatulistiwa，位于市中心以北约 3 公里；当地政府描述由市中心前往约需 30 分钟，取决于交通状况。
+位置Jl.Khatulistiwa/BatuLayang/PontianakUtara/Pontianak/KalBar78244；Maps pin0.000921,109.3223955，评分4.5/9444，每日08–17，仅核对日快照。没有复制电话、官网身份或当前票价。
 
-## 适合落地页的可靠信息
+已读取Indonesia.travel主源：1928初始标记、1930加环与箭头、1938四根belian柱阶段，1990–1991保护与复制、1991落成；旧碑在内，不能保证当前所有房间开放。现价未核，不保留旧5k数额或免费断言。
 
-纪念碑是 Pontianak 的旅游与教育地标，标示赤道通过的区域。国家旅游门户记述：1928 年先以木桩标示，1930 年改为圆柱形铁桩，1938 年形成带箭头与圆环的铁架构，现今外观源于 1990 年的扩建并保护原始构件。每年约 3 月 21—23 日与 9 月 21—23 日前后会出现太阳“kulminasi”现象：太阳接近头顶，直立物体的影子短暂收拢至脚下。
+已读取市政府2026-03-23活动报道，仅证明当年那次活动，不是每日或下一次schedule。未读取BMKG原始时间表，因此不写2026精确分钟。天文时刻由位置/年份计算，天气只影响观测可见性。删除旧21–23固定日期窗及3km/固定机场分钟。Disporapar403不绕过、不据其声称当前设施保证。
 
-## 待以现场／官方渠道再次确认的信息
-
-票价、每日开放时段、停车容量、无障碍条件及特定活动日期可能变更。网站将用“请出行前向现场或官方渠道确认”的表述，避免捏造精确值。地方旅游机构确认该处自 2024 年 2 月起实行收费，但公开摘要未给出本次可核验的金额。
-
-## 信息来源
-
-1. Pontianak 市青年、体育与旅游局：<https://disporapar.pontianak.go.id/pariwisata/6>
-2. Pontianak 市青年、体育与旅游局：<https://disporapar.pontianak.go.id/informasi/berita/retribusi-tugu-khatulistiwa>
-3. 印尼国家旅游门户：<https://www.indonesia.travel/id/id/travel-ideas/culture/tugu-khatulistiwa>
-4. Pontianak 市政府：<https://pontianak.go.id/pontianak-hari-ini/berita/Renovasi-Monumen-Tugu-Khatulistiwa,-Jadikan-Ikon-Kebanggaan-Pontianak>
+主源：https://www.indonesia.travel/id/id/travel-ideas/culture/tugu-khatulistiwa ；活动源：https://www.pontianak.go.id/pontianak-hari-ini/berita/Robby-3-Wheels-Terkesan-Tiada-Bayangan-di-Tugu-Khatulistiwa 。
 
 ## 参考网站观察
 
@@ -27,7 +18,7 @@ Parque de la Salud 的首屏以实景影像、简明锚点导航、语言切换�
 
 拟用主摄影来自 Wikimedia Commons 的 [Pontianak Equator Monument.jpg](https://commons.wikimedia.org/wiki/File:Pontianak_Equator_Monument.jpg)：摄影者 SunDawn，CC BY-SA 4.0。网页应在图注／图片致谢中保留摄影者、许可证和来源链接。
 
-## 本地预览验证
+## 历史预览记录（非本轮生产验收）
 
 Astro 开发服务器已配置为接受项目预览域名。首页默认以印尼语呈现，首屏显示地点、历史、交通、周边、FAQ、独立政策页入口及英语切换控件。
 
