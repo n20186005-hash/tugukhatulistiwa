@@ -104,19 +104,51 @@ const legal = {
     <script is:inline>
     (() => {
       const GA_ID = 'G-HXM22WWPKP';
-      window.setTuguAnalytics = enabled => {
-        window['ga-disable-' + GA_ID] = !enabled;
-        if (!enabled || document.querySelector('[data-ga4]')) return;
-        window.dataLayer = window.dataLayer || [];
-        window.gtag = function () { window.dataLayer.push(arguments); };
+      const key = 'tugu-khatulistiwa-analytics';
+      const vetoKey = key + '-denied';
+  if (!window.setTuguAnalytics) {
+    let currentChoice = null;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+    window.readTuguAnalytics = () => {
+      let value = null;
+      try { value = localStorage.getItem(key); } catch {}
+      try { if (sessionStorage.getItem(vetoKey) === '1') value = 'denied'; } catch { value = 'denied'; }
+      return currentChoice || value;
+    };
+    window.setTuguAnalytics = enabled => {
+      let sessionSaved = false;
+      try {
+        if (enabled) {
+          sessionStorage.removeItem(vetoKey);
+          if (sessionStorage.getItem(vetoKey) === '1') throw new Error('Veto retained');
+        } else sessionStorage.setItem(vetoKey, '1');
+        sessionSaved = true;
+      } catch {
+        if (enabled) {
+          try { if (sessionStorage.getItem(vetoKey) === '1') enabled = false; } catch { enabled = false; }
+        }
+      }
+      currentChoice = enabled ? 'granted' : 'denied';
+      window['ga-disable-' + GA_ID] = !enabled;
+      window.gtag('consent', 'update', { analytics_storage: enabled ? 'granted' : 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+      if (enabled && !document.querySelector('[data-ga4]')) {
         window.gtag('js', new Date()); window.gtag('config', GA_ID, { anonymize_ip: true });
         const script = document.createElement('script'); script.async = true;
         script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
         script.dataset.ga4 = 'consented'; document.head.appendChild(script);
-      };
-      let enabled = false;
-      try { enabled = localStorage.getItem('tugu-khatulistiwa-analytics') === 'granted'; } catch {}
-      window.setTuguAnalytics(enabled);
+      }
+      return sessionSaved;
+    };
+    window.addEventListener('storage', (event) => {
+      if (event.key !== key) return;
+      if (event.newValue !== 'granted') window.setTuguAnalytics(false);
+      window.dispatchEvent(new Event('tugu-consent-change'));
+    });
+    window.gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+    window.setTuguAnalytics(window.readTuguAnalytics() === 'granted');
+  }
+      window.dispatchEvent(new Event('tugu-consent-change'));
     })();
     </script>
     <script is:inline>

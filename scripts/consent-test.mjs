@@ -1,15 +1,17 @@
-import { readFileSync } from 'node:fs';
-import vm from 'node:vm';
-import assert from 'node:assert/strict';
-const layout=[...readFileSync('src/layouts/SiteLayout.astro','utf8').matchAll(/<script is:inline>([\s\S]*?)<\/script>/g)].map(m=>m[1]).find(s=>s.includes('setTuguAnalytics'));
-const legal=readFileSync('src/components/LegalPage.astro','utf8').match(/<script is:inline>([\s\S]*?)<\/script>/)[1];
-const nodes=new Map();
-const get=id=>{if(!nodes.has(id))nodes.set(id,{checked:false,dataset:{saved:'saved'},events:{},addEventListener(event,fn){this.events[event]=fn;}});return nodes.get(id);};
-const loaded=[];
-const context={window:{},localStorage:{getItem(){throw Error('blocked');},setItem(){throw Error('blocked');}},document:{documentElement:{lang:'en'},getElementById:get,querySelector:()=>loaded[0],createElement:()=>({dataset:{}}),head:{appendChild:s=>loaded.push(s)}}};
-vm.runInNewContext(legal,context);vm.runInNewContext(layout,context);
-assert.equal(context.window['ga-disable-G-HXM22WWPKP'],true);assert.equal(loaded.length,0);
-get('analytics-consent').checked=true;get('save-cookie').events.click();
-assert.equal(context.window['ga-disable-G-HXM22WWPKP'],false);assert.equal(loaded.length,1);assert.match(get('cookie-feedback').textContent,/could not be saved/);
-get('reject-all').events.click();assert.equal(context.window['ga-disable-G-HXM22WWPKP'],true);assert.equal(loaded.length,1);
-console.log('Consent: storage exceptions, current-page grant and immediate refusal passed.');
+import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';
+const code=[...fs.readFileSync('src/layouts/SiteLayout.astro','utf8').matchAll(/<script is:inline>([\s\S]*?)<\/script>/g)].find(m=>m[1].includes('const GA_ID'))[1];
+const ui=fs.readFileSync('src/components/LegalPage.astro','utf8').match(/<script is:inline>([\s\S]*?)<\/script>/)[1];const key='tugu-khatulistiwa-analytics';
+function setup({localFail=false,sessionFail=false,sessionReadFail=false,localReadFail=false,removeFail=false,initial='granted',shared}={}){
+ const local=shared||new Map([[key,initial]]),session=new Map(),scripts=[],listeners={},elements={};
+ const storage=(m,fail,isSession=false)=>({getItem(k){if((isSession&&sessionReadFail)||(!isSession&&localReadFail))throw Error('read');return m.get(k)||null},setItem(k,v){if(fail)throw Error('write');m.set(k,v)},removeItem(k){if(fail||(isSession&&removeFail))throw Error('remove');m.delete(k)}});
+ const c={Event:class{constructor(type){this.type=type}},Date,localStorage:storage(local,localFail),sessionStorage:storage(session,sessionFail,true),addEventListener:(e,f)=>(listeners[e]||=[]).push(f),dispatchEvent:e=>(listeners[e.type]||[]).forEach(f=>f(e)),document:{documentElement:{lang:'en'},querySelector:q=>scripts[0]||null,createElement:()=>({dataset:{}}),head:{appendChild:s=>scripts.push(s)},getElementById:id=>elements[id]||={checked:false,textContent:'',dataset:{saved:'Preferences saved.'},addEventListener(e,f){this[e]=f}}}};c.window=c;vm.createContext(c);vm.runInContext(ui,c);vm.runInContext(code,c);return {c,local,session,scripts,elements};
+}
+for(const options of [{},{localFail:true},{localFail:true,sessionFail:true}]){const x=setup(options);assert.equal(x.scripts.length,1);x.elements['reject-all'].click();assert.equal(x.c.readTuguAnalytics(),'denied');assert.equal(x.c['ga-disable-G-HXM22WWPKP'],true);assert.equal(x.c.dataLayer.at(-1)[2].analytics_storage,'denied');vm.runInContext(code,x.c);assert.equal(x.scripts.length,1);assert.equal(x.c.readTuguAnalytics(),'denied');x.elements['analytics-consent'].checked=true;x.elements['save-cookie'].click();assert.equal(x.c.readTuguAnalytics(),'granted');assert.equal(x.scripts.length,1);assert.equal(x.c.dataLayer.at(-1)[2].analytics_storage,'granted');}
+const unreadable=setup({sessionReadFail:true});assert.equal(unreadable.scripts.length,0);assert.equal(unreadable.elements['analytics-consent'].checked,false);unreadable.elements['analytics-consent'].checked=true;unreadable.elements['save-cookie'].click();assert.equal(unreadable.scripts.length,0);assert.equal(unreadable.local.get(key),'denied');
+const retained=setup({removeFail:true});retained.elements['reject-all'].click();retained.elements['analytics-consent'].checked=true;retained.elements['save-cookie'].click();assert.equal(retained.local.get(key),'denied');assert.equal(retained.c.readTuguAnalytics(),'denied');assert.equal(retained.elements['analytics-consent'].checked,false);
+const shared=new Map([[key,'granted']]),a=setup({shared}),b=setup({shared});b.elements['reject-all'].click();a.c.dispatchEvent({type:'storage',key,newValue:shared.get(key)});assert.equal(a.c.readTuguAnalytics(),'denied');assert.equal(a.c['ga-disable-G-HXM22WWPKP'],true);assert.equal(a.elements['analytics-consent'].checked,false);assert.match(a.elements['cookie-feedback'].textContent,/disabled/);shared.set(key,'granted');a.c.dispatchEvent({type:'storage',key,newValue:'granted'});assert.equal(a.c.readTuguAnalytics(),'denied');assert.equal(a.scripts.length,1);
+const noGrant=setup({initial:'malformed'});assert.equal(noGrant.scripts.length,0);
+console.log('Actual inline runtime and cookie UI VM passed: UI-before-layout initialization, stored grant, denial write failure, dual writes failure, document/session veto, sessionreadfailclosed, retained veto clear failure prevents shared grant, cross-tab storage denial and effective UI, regrant singleloader.');
+
+const localUnreadable=setup({localReadFail:true});assert.equal(localUnreadable.scripts.length,0);const dual=setup({localFail:true,sessionFail:true});dual.elements['reject-all'].click();assert.match(dual.elements['cookie-feedback'].textContent,/not guaranteed/);const tabScoped=setup({localFail:true});tabScoped.elements['reject-all'].click();assert.match(tabScoped.elements['cookie-feedback'].textContent,/this tab/);
+console.log('Additional local-read failclosed and truthful tab/document storage scope passed.');

@@ -16,7 +16,7 @@ export const legal: Record<LegalDoc, Record<Locale, LegalContent>> = {
     id: {
       kicker: "DOKUMEN · 01",
       title: "Kebijakan<br /><em>Privasi.</em>",
-      updated: "Terakhir diperbarui: Agustus 2026",
+      updated: "Terakhir diperbarui: 21 Oktober 2026",
       lede: "Kami mengumpulkan jumlah data minimum yang diperlukan untuk menjalankan situs panduan independen ini dan memahami penggunaan secara agregat.",
       sections: [
         { heading: "Informasi yang kami kumpulkan", body: "Data dapat mencakup informasi penelusuran dasar seperti alamat IP, tipe browser dan halaman yang dikunjungi; cookie serta teknologi serupa. Situs ini tidak menyediakan akun, formulir pemesanan atau formulir kontak." },
@@ -28,7 +28,7 @@ export const legal: Record<LegalDoc, Record<Locale, LegalContent>> = {
     en: {
       kicker: "DOCUMENT · 01",
       title: "Privacy<br /><em>Policy.</em>",
-      updated: "Last updated: August 2026",
+      updated: "Last updated: 21 October 2026",
       lede: "We collect the minimum data needed to run this independent guide and to understand use in aggregate.",
       sections: [
         { heading: "Information we collect", body: "This may include basic browsing information such as IP address, browser type and pages visited; cookies and similar technologies. This site has no account, booking form or contact form." },
@@ -42,7 +42,7 @@ export const legal: Record<LegalDoc, Record<Locale, LegalContent>> = {
     id: {
       kicker: "DOKUMEN · 02",
       title: "Ketentuan<br /><em>Layanan.</em>",
-      updated: "Terakhir diperbarui: Agustus 2026",
+      updated: "Terakhir diperbarui: 21 Oktober 2026",
       lede: "Dengan mengakses dan menggunakan situs ini, Anda setuju pada ketentuan ini.",
       sections: [
         { heading: "Penggunaan konten", body: "Semua materi pada situs ini disediakan hanya sebagai referensi. Kami adalah situs informasi perjalanan independen pihak ketiga dan tidak berafiliasi dengan tempat wisata, lembaga pemerintah, atau operator komersial mana pun." },
@@ -54,7 +54,7 @@ export const legal: Record<LegalDoc, Record<Locale, LegalContent>> = {
     en: {
       kicker: "DOCUMENT · 02",
       title: "Terms of<br /><em>Service.</em>",
-      updated: "Last updated: August 2026",
+      updated: "Last updated: 21 October 2026",
       lede: "By accessing and using this site, you agree to these terms.",
       sections: [
         { heading: "Use of content", body: "All material on this site is supplied for reference only. We are an independent third-party travel information site and are not affiliated with any attraction, government institution or commercial operator." },
@@ -68,7 +68,7 @@ export const legal: Record<LegalDoc, Record<Locale, LegalContent>> = {
     id: {
       kicker: "DOKUMEN · 03",
       title: "Pengaturan<br /><em>Cookie.</em>",
-      updated: "Terakhir diperbarui: Agustus 2026",
+      updated: "Terakhir diperbarui: 21 Oktober 2026",
       lede: "Cookie membantu situs mengingat preferensi Anda. Anda dapat mengelola izin analitik di bawah ini kapan saja.",
       sections: [
         { heading: "Cookie penting", body: "Diperlukan agar pengaturan dasar situs berfungsi dan tidak dapat dimatikan di halaman ini." },
@@ -80,7 +80,7 @@ export const legal: Record<LegalDoc, Record<Locale, LegalContent>> = {
     en: {
       kicker: "DOCUMENT · 03",
       title: "Cookie<br /><em>Settings.</em>",
-      updated: "Last updated: August 2026",
+      updated: "Last updated: 21 October 2026",
       lede: "Cookies help the site remember your preferences. You can manage analytics permission below at any time.",
       sections: [
         { heading: "Essential cookies", body: "These are needed for basic site settings to work and cannot be turned off on this page." },
@@ -91,3 +91,10 @@ export const legal: Record<LegalDoc, Record<Locale, LegalContent>> = {
     },
   },
 };
+
+for (const doc of ['privacy', 'cookies'] as const) {
+ legal[doc].id.sections.push({heading: 'Kinerja hosting Cloudflare', body: 'Hosting Cloudflare menyisipkan beacon Cloudflare Insights (RUM) secara terpisah dari Google Analytics. Beacon dapat mengirim metrik kinerja halaman, URL dan perujuk ke Cloudflare. Dokumentasi Cloudflare menyatakan beacon tidak memakai kuki atau penyimpanan peramban dan alamat IP permintaan dibuang di pusat data terdekat. Kontrol Google Analytics situs ini tidak mengendalikan beacon hosting. Keberadaan skrip tidak membuktikan pengiriman metrik berhasil.'});
+ legal[doc].en.sections.push({heading: 'Cloudflare hosting performance', body: 'Cloudflare hosting injects a Cloudflare Insights (RUM) beacon separately from Google Analytics. It may send page performance metrics, URLs and referrers to Cloudflare. Cloudflare documents that the beacon uses no cookies or browser storage and discards the request IP address at its nearest data center. This site’s Google Analytics control does not control the hosting beacon. Script presence does not establish successful metric delivery.'});
+}
+legal.cookies.id.sections.push({heading:'Batas penyimpanan pilihan',body:'Jika penyimpanan lokal gagal, penolakan dapat berlaku untuk tab ini selama penyimpanan sesi tersedia. Jika keduanya gagal, penolakan hanya berlaku pada halaman ini. Tab atau peramban lain dapat berbeda.'});
+legal.cookies.en.sections.push({heading:'Preference storage limits',body:'If local storage fails, denial can apply to this tab while session storage works. If both fail, denial applies only to this page. Other tabs or browsers may differ.'});

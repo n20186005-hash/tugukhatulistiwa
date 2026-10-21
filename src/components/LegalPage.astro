@@ -18,6 +18,7 @@ const g = legal[doc][locale];
     <section><h2>{s.heading}</h2><p>{s.body}</p></section>
   ))}
 
+  {doc !== "terms" && <p><a href="https://developers.cloudflare.com/speed/observatory/rum-beacon/" target="_blank" rel="noopener noreferrer">{locale === "id" ? "Dokumentasi Cloudflare RUM · diperiksa 21 Oktober 2026" : "Cloudflare RUM documentation · checked 21 October 2026"}</a></p>}
   {doc === "cookies" && g.labels && (
     <div class="cookie-page-inner">
       <div class="cookie-option"><div><h2>{g.sections[0].heading}</h2><p>{g.sections[0].body}</p></div><span class="cookie-status">{g.labels.alwaysOn}</span></div>
@@ -41,12 +42,19 @@ const g = legal[doc][locale];
     const key = 'tugu-khatulistiwa-analytics';
     const input = document.getElementById('analytics-consent');
     const fb = document.getElementById('cookie-feedback');
-    try { input.checked = localStorage.getItem(key) === 'granted'; } catch { input.checked = false; }
+    const sync = () => { input.checked = window.readTuguAnalytics?.() === 'granted'; };
+    sync();
+    window.addEventListener('tugu-consent-change', () => {
+      sync();
+      if (fb) fb.textContent = document.documentElement.lang === 'en' ? (input.checked ? 'Google Analytics enabled.' : 'Google Analytics disabled.') : (input.checked ? 'Google Analytics aktif.' : 'Google Analytics nonaktif.');
+    });
     const save = enabled => {
-      window.setTuguAnalytics?.(enabled);
+      const sessionSaved = window.setTuguAnalytics?.(enabled);
+      enabled = window.readTuguAnalytics?.() === 'granted';
+      input.checked = enabled;
       let saved = false;
       try { localStorage.setItem(key, enabled ? 'granted' : 'denied'); saved = true; } catch {}
-      if (fb) fb.textContent = saved ? fb.dataset.saved : (document.documentElement.lang === 'en' ? 'Choice applies to this page, but could not be saved for later visits.' : 'Pilihan berlaku pada halaman ini, tetapi tidak dapat disimpan untuk kunjungan berikutnya.');
+      if (fb) fb.textContent = saved && sessionSaved ? fb.dataset.saved : (!enabled && sessionSaved ? (document.documentElement.lang === 'en' ? 'Google Analytics disabled for this tab; permanent storage failed. Other tabs or browsers may differ.' : 'Google Analytics nonaktif untuk tab ini; penyimpanan permanen gagal. Tab atau peramban lain dapat berbeda.') : (document.documentElement.lang === 'en' ? 'Choice applies to this page; persistence for navigation, reloads, tabs or browsers is not guaranteed.' : 'Pilihan berlaku pada halaman ini; penyimpanan untuk navigasi, pemuatan ulang, tab atau peramban lain tidak dijamin.'));
     };
     document.getElementById('save-cookie')?.addEventListener('click', () => save(input?.checked === true));
     document.getElementById('reject-all')?.addEventListener('click', () => { input.checked = false; save(false); });
